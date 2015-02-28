@@ -156,4 +156,13 @@
             }
         });
     }
+
+    /**
+     * DATA-* ATTRIBUTES API
+     *
+     * Use data-* attributes to enable/configure your sheeper components.
+     */
+    $(document).ready(function() {
+        $('[data-toggle="sheeper"]').sheeper({});
+    });
 })(jQuery);
