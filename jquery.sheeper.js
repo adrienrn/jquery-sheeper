@@ -86,7 +86,7 @@
                 plugin.settings.afterSheep($(e));
             } else {
                 // Creates a new sheep.
-                var $newForm = $(plugin.settings.prototype.replace(/__name__/g, $wrapper.children().length));
+                var $newForm = $(plugin.settings.prototype.replace(/__name__|\{\{name\}\}/g, $wrapper.children().length));
                 if (plugin.settings.prepend) {
                     $wrapper.prepend($newForm);
                 } else {
