@@ -3,7 +3,7 @@
  *
  */
 (function($) {
-    $.inputSheeper = function(element, options) {
+    $.sheeper = $.inputSheeper = function(element, options) {
         var plugin = this,
             defaults = {
                 selector: ".sheep", // Each sheep must have this selector in template.
@@ -148,10 +148,10 @@
         }
         plugin.init();
     }
-    $.fn.inputSheeper = function(options) {
+    $.fn.sheeper = $.fn.inputSheeper = function(options) {
         return this.each(function() {
             if (undefined == $(this).data('inputSheeper')) {
-                var plugin = new $.inputSheeper(this, options);
+                var plugin = new $.sheeper(this, options);
                 $(this).data('inputSheeper', plugin);
             }
         });
