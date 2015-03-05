@@ -36,6 +36,21 @@
             plugin.settings = $.extend({}, defaults, $element.data(), options);
             // Container for sheeps.
             $wrapper = (plugin.settings.container) ? $(plugin.settings.container) : $element;
+
+            if(plugin.settings.prototype.match('^(#|\\.)[a-zA-Z].*')) {
+                // Prototype is an id (#) or a class (.)
+                var $template = $(plugin.settings.prototype);
+
+                // Hide the template and retrieve its content for latter use.
+                $template.hide();
+                plugin.settings.prototype = $template.html();
+            }
+
+            if(! plugin.settings.prototype) {
+                console.log("No template found. Please provide a template using the 'prototype' javascript option or data-prototype HTML attribute");
+                return;
+            }
+
             // Do some init / apply stuffs.
             plugin.execute();
             plugin.settings.afterInit($element);
