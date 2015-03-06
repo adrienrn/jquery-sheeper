@@ -26,7 +26,8 @@
                 }
             },
             $element = $(element),
-            $wrapper;
+            $wrapper,
+            ids = [];
         plugin.settings = {};
         /**
          *
@@ -98,10 +99,22 @@
             }
             if (e) {
                 // Only registers the sheep in the herd.
-                plugin.settings.afterSheep($(e));
+                var $e = $(e),
+                    id = $(e).data("sid");
+
+                ids.push(id);
+
+                plugin.settings.afterSheep($e);
             } else {
+                var id = getId();
+
                 // Creates a new sheep.
-                var $newForm = $(plugin.settings.prototype.replace(/__name__|\{\{name\}\}/g, $wrapper.children().length));
+                var $newForm = $(plugin.settings.prototype.replace(/__name__|\{\{name\}\}/g, id));
+
+                // Sets the sheep ID.
+                $newForm.data("sid", id);
+                ids.push(id);
+
                 if (plugin.settings.prepend) {
                     $wrapper.prepend($newForm);
                 } else {
@@ -161,6 +174,16 @@
         var disableUnsheep = function() {
             $wrapper.find(plugin.settings.removeSelector).addClass("disabled");
         }
+
+        var getId = function() {
+            var id = $wrapper.children().length;
+            while(ids.indexOf(id) !== -1) {
+                id++;
+            }
+
+            return id;
+        }
+
         plugin.init();
     }
     $.fn.sheeper = $.fn.inputSheeper = function(options) {
