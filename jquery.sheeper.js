@@ -35,7 +35,7 @@
         plugin.init = function() {
             plugin.settings = $.extend({}, defaults, $element.data(), options);
             // Container for sheeps.
-            $wrapper = (plugin.settings.container) ? $(plugin.settings.container) : $element;
+            $wrapper = (plugin.settings.container) ? $element.find(plugin.settings.container) : $element;
 
             if(plugin.settings.prototype.match('^(#|\\.)[a-zA-Z].*')) {
                 // Prototype is an id (#) or a class (.)
