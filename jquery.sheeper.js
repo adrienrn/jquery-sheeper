@@ -48,7 +48,7 @@
             }
 
             if(! plugin.settings.prototype) {
-                console.log("No template found. Please provide a template using the 'prototype' javascript option or data-prototype HTML attribute");
+                console.error("No template found. Please provide a template using the 'prototype' javascript option or data-prototype HTML attribute");
                 return;
             }
 
