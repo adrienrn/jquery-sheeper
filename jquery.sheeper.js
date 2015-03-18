@@ -181,13 +181,17 @@
         var moveUp = function(e) {
             var $sheep = $(e).parents(plugin.settings.selector),
                 $previous = $sheep.prev();
-            $sheep.detach().insertBefore($previous);
+            if($previous.length) {
+                $sheep.detach().insertBefore($previous);
+            }
         }
 
         var moveDown = function(e) {
             var $sheep = $(e).parents(plugin.settings.selector),
                 $next = $sheep.next();
-            $sheep.detach().insertAfter($next);
+            if($next.length) {
+                $sheep.detach().insertAfter($next);
+            }
         }
 
         var numberOfSheeps = function() {
