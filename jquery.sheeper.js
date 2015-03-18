@@ -246,7 +246,7 @@
         }
 
         var getId = function() {
-            var id = $wrapper.children().length;
+            var id = 0;
             while(ids.indexOf(id) !== -1) {
                 id++;
             }
