@@ -122,7 +122,7 @@
                 var id = getId();
 
                 // Creates a new sheep.
-                var $sheep = $(plugin.settings.prototype.replace(/__name__|\{\{name\}\}/g, id));
+                var $sheep = $(plugin.settings.prototype.replace(/(__|\{\{)\s?name\s?(__|\}\})/gi, id));
 
                 // Sets the sheep ID.
                 $sheep.data("sid", id);
