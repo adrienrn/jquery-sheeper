@@ -149,6 +149,8 @@
             } else {
                 disableSheep();
             }
+
+            refresh();
         }
         /**
          * Deletes a sheep element.
@@ -176,6 +178,8 @@
             if (numberOfSheeps() === plugin.settings.min) {
                 disableUnsheep();
             }
+
+            refresh();
         }
 
         var moveUp = function(e) {
@@ -184,6 +188,8 @@
             if($previous.length) {
                 $sheep.detach().insertBefore($previous);
             }
+
+            refresh();
         }
 
         var moveDown = function(e) {
@@ -192,10 +198,28 @@
             if($next.length) {
                 $sheep.detach().insertAfter($next);
             }
+
+            refresh();
         }
 
         var numberOfSheeps = function() {
             return $wrapper.find(plugin.settings.selector).length;
+        }
+
+        var refresh = function() {
+            var $sheeps = $wrapper.children();
+            $sheeps.each(function(i, e) {
+                var $e = $(e);
+                $e.find(plugin.settings.moveUpSelector).each(function(i, e) {
+                    $(e).removeClass("disabled");
+                });
+                $e.find(plugin.settings.moveDownSelector).each(function(i, e) {
+                    $(e).removeClass("disabled");
+                });
+            });
+
+            $sheeps.first().find(plugin.settings.moveUpSelector).addClass("disabled");
+            $sheeps.last().find(plugin.settings.moveDownSelector).addClass("disabled");
         }
 
         var enableSheep = function() {
