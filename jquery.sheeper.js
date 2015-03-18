@@ -105,23 +105,29 @@
                 ids.push(id);
 
                 plugin.settings.afterSheep($e);
+                $e.trigger(
+                    $.Event('sheeped.jq.sheeper', {})
+                );
             } else {
                 var id = getId();
 
                 // Creates a new sheep.
-                var $newForm = $(plugin.settings.prototype.replace(/__name__|\{\{name\}\}/g, id));
+                var $sheep = $(plugin.settings.prototype.replace(/__name__|\{\{name\}\}/g, id));
 
                 // Sets the sheep ID.
-                $newForm.data("sid", id);
+                $sheep.data("sid", id);
                 ids.push(id);
 
                 if (plugin.settings.prepend) {
-                    $wrapper.prepend($newForm);
+                    $wrapper.prepend($sheep);
                 } else {
-                    $wrapper.append($newForm);
+                    $wrapper.append($sheep);
                 }
                 // Registers the sheep in the herd.
-                plugin.settings.afterSheep($newForm);
+                plugin.settings.afterSheep($sheep);
+                $sheep.trigger(
+                    $.Event('sheeped.jq.sheeper', {})
+                );
             }
             if (numberOfSheeps() > plugin.settings.min) {
                 enableUnsheep();
@@ -143,9 +149,19 @@
             if (numberOfSheeps() > plugin.settings.min) {
                 var $sheep = $(e).parents(plugin.settings.selector);
                 plugin.settings.beforeUnsheep($sheep);
+                $sheep.trigger(
+                    $.Event('unsheep.jq.sheeper', {})
+                );
+
                 // Removes the sheep.
                 $sheep.remove();
+
                 plugin.settings.afterUnsheep($sheep);
+                $wrapper.trigger(
+                    $.Event('unsheeped.jq.sheeper', {
+                        relatedTarget: $sheep
+                    })
+                );
             }
             if (numberOfSheeps() === plugin.settings.min) {
                 disableUnsheep();
