@@ -9,6 +9,8 @@
                 selector: ".sheep", // Each sheep must have this selector in template.
                 addSelector: ".sheep-link", // Add button (new sheep in the list).
                 removeSelector: ".unsheep-link", // Remove button in the prototype.
+                moveUpSelector: ".sheepup-link", // Move up button in the prototype.
+                moveDownSelector: ".sheepdown-link", // Move up button in the prototype.
                 min: 1, // Minimum number of sheeps in the list.
                 max: 100,
                 prepend: false, // By default, append new element. Set prepend to true to prepend new sheeps.
@@ -86,6 +88,14 @@
             $wrapper.on("click", plugin.settings.removeSelector, function(e) {
                 e.preventDefault();
                 unsheep(this);
+            });
+            $wrapper.on("click", plugin.settings.moveUpSelector, function(e) {
+                e.preventDefault();
+                moveUp(this);
+            });
+            $wrapper.on("click", plugin.settings.moveDownSelector, function(e) {
+                e.preventDefault();
+                moveDown(this);
             });
         }
         /**
@@ -167,15 +177,31 @@
                 disableUnsheep();
             }
         }
+
+        var moveUp = function(e) {
+            var $sheep = $(e).parents(plugin.settings.selector),
+                $previous = $sheep.prev();
+            $sheep.detach().insertBefore($previous);
+        }
+
+        var moveDown = function(e) {
+            var $sheep = $(e).parents(plugin.settings.selector),
+                $next = $sheep.next();
+            $sheep.detach().insertAfter($next);
+        }
+
         var numberOfSheeps = function() {
             return $wrapper.find(plugin.settings.selector).length;
         }
+
         var enableSheep = function() {
             $wrapper.find(plugin.settings.addSelector).removeClass("disabled");
         }
+
         var disableSheep = function() {
             $wrapper.find(plugin.settings.addSelector).addClass("disabled");
         }
+
         /**
          * Enable the ability to unhseep.
          * @return void
