@@ -3,12 +3,14 @@
  *
  */
 (function($) {
-    $.inputSheeper = function(element, options) {
+    $.sheeper = $.inputSheeper = function(element, options) {
         var plugin = this,
             defaults = {
                 selector: ".sheep", // Each sheep must have this selector in template.
                 addSelector: ".sheep-link", // Add button (new sheep in the list).
                 removeSelector: ".unsheep-link", // Remove button in the prototype.
+                moveUpSelector: ".sheepup-link", // Move up button in the prototype.
+                moveDownSelector: ".sheepdown-link", // Move up button in the prototype.
                 min: 1, // Minimum number of sheeps in the list.
                 max: 100,
                 prepend: false, // By default, append new element. Set prepend to true to prepend new sheeps.
@@ -26,7 +28,8 @@
                 }
             },
             $element = $(element),
-            $wrapper;
+            $wrapper,
+            ids = [];
         plugin.settings = {};
         /**
          *
@@ -35,7 +38,22 @@
         plugin.init = function() {
             plugin.settings = $.extend({}, defaults, $element.data(), options);
             // Container for sheeps.
-            $wrapper = (plugin.settings.container) ? $(plugin.settings.container) : $element;
+            $wrapper = (plugin.settings.container) ? $element.find(plugin.settings.container) : $element;
+
+            if(plugin.settings.prototype.match('^(#|\\.)[a-zA-Z].*')) {
+                // Prototype is an id (#) or a class (.)
+                var $template = $(plugin.settings.prototype);
+
+                // Hide the template and retrieve its content for latter use.
+                $template.hide();
+                plugin.settings.prototype = $template.html();
+            }
+
+            if(! plugin.settings.prototype) {
+                console.error("No template found. Please provide a template using the 'prototype' javascript option or data-prototype HTML attribute");
+                return;
+            }
+
             // Do some init / apply stuffs.
             plugin.execute();
             plugin.settings.afterInit($element);
@@ -71,6 +89,14 @@
                 e.preventDefault();
                 unsheep(this);
             });
+            $wrapper.on("click", plugin.settings.moveUpSelector, function(e) {
+                e.preventDefault();
+                moveUp(this);
+            });
+            $wrapper.on("click", plugin.settings.moveDownSelector, function(e) {
+                e.preventDefault();
+                moveDown(this);
+            });
         }
         /**
          * Creates (or registers) a new sheep in the herd.
@@ -83,17 +109,35 @@
             }
             if (e) {
                 // Only registers the sheep in the herd.
-                plugin.settings.afterSheep($(e));
+                var $e = $(e),
+                    id = $(e).data("sid");
+
+                ids.push(id);
+
+                plugin.settings.afterSheep($e);
+                $e.trigger(
+                    $.Event('sheeped.jq.sheeper', {})
+                );
             } else {
+                var id = getId();
+
                 // Creates a new sheep.
-                var $newForm = $(plugin.settings.prototype.replace(/__name__/g, $wrapper.children().length));
+                var $sheep = $(plugin.settings.prototype.replace(/(__|\{\{)\s?name\s?(__|\}\})/gi, id));
+
+                // Sets the sheep ID.
+                $sheep.data("sid", id);
+                ids.push(id);
+
                 if (plugin.settings.prepend) {
-                    $wrapper.prepend($newForm);
+                    $wrapper.prepend($sheep);
                 } else {
-                    $wrapper.append($newForm);
+                    $wrapper.append($sheep);
                 }
                 // Registers the sheep in the herd.
-                plugin.settings.afterSheep($newForm);
+                plugin.settings.afterSheep($sheep);
+                $sheep.trigger(
+                    $.Event('sheeped.jq.sheeper', {})
+                );
             }
             if (numberOfSheeps() > plugin.settings.min) {
                 enableUnsheep();
@@ -105,6 +149,8 @@
             } else {
                 disableSheep();
             }
+
+            refresh();
         }
         /**
          * Deletes a sheep element.
@@ -115,23 +161,75 @@
             if (numberOfSheeps() > plugin.settings.min) {
                 var $sheep = $(e).parents(plugin.settings.selector);
                 plugin.settings.beforeUnsheep($sheep);
+                $sheep.trigger(
+                    $.Event('unsheep.jq.sheeper', {})
+                );
+
                 // Removes the sheep.
                 $sheep.remove();
+
                 plugin.settings.afterUnsheep($sheep);
+                $wrapper.trigger(
+                    $.Event('unsheeped.jq.sheeper', {
+                        relatedTarget: $sheep
+                    })
+                );
             }
             if (numberOfSheeps() === plugin.settings.min) {
                 disableUnsheep();
             }
+
+            refresh();
         }
+
+        var moveUp = function(e) {
+            var $sheep = $(e).parents(plugin.settings.selector),
+                $previous = $sheep.prev();
+            if($previous.length) {
+                $sheep.detach().insertBefore($previous);
+            }
+
+            refresh();
+        }
+
+        var moveDown = function(e) {
+            var $sheep = $(e).parents(plugin.settings.selector),
+                $next = $sheep.next();
+            if($next.length) {
+                $sheep.detach().insertAfter($next);
+            }
+
+            refresh();
+        }
+
         var numberOfSheeps = function() {
             return $wrapper.find(plugin.settings.selector).length;
         }
+
+        var refresh = function() {
+            var $sheeps = $wrapper.children();
+            $sheeps.each(function(i, e) {
+                var $e = $(e);
+                $e.find(plugin.settings.moveUpSelector).each(function(i, e) {
+                    $(e).removeClass("disabled");
+                });
+                $e.find(plugin.settings.moveDownSelector).each(function(i, e) {
+                    $(e).removeClass("disabled");
+                });
+            });
+
+            $sheeps.first().find(plugin.settings.moveUpSelector).addClass("disabled");
+            $sheeps.last().find(plugin.settings.moveDownSelector).addClass("disabled");
+        }
+
         var enableSheep = function() {
             $wrapper.find(plugin.settings.addSelector).removeClass("disabled");
         }
+
         var disableSheep = function() {
             $wrapper.find(plugin.settings.addSelector).addClass("disabled");
         }
+
         /**
          * Enable the ability to unhseep.
          * @return void
@@ -146,14 +244,33 @@
         var disableUnsheep = function() {
             $wrapper.find(plugin.settings.removeSelector).addClass("disabled");
         }
+
+        var getId = function() {
+            var id = 0;
+            while(ids.indexOf(id) !== -1) {
+                id++;
+            }
+
+            return id;
+        }
+
         plugin.init();
     }
-    $.fn.inputSheeper = function(options) {
+    $.fn.sheeper = $.fn.inputSheeper = function(options) {
         return this.each(function() {
             if (undefined == $(this).data('inputSheeper')) {
-                var plugin = new $.inputSheeper(this, options);
+                var plugin = new $.sheeper(this, options);
                 $(this).data('inputSheeper', plugin);
             }
         });
     }
+
+    /**
+     * DATA-* ATTRIBUTES API
+     *
+     * Use data-* attributes to enable/configure your sheeper components.
+     */
+    $(document).ready(function() {
+        $('[data-toggle="sheeper"]').sheeper({});
+    });
 })(jQuery);
