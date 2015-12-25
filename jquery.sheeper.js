@@ -35,7 +35,8 @@
          *
          * @return {[type]} [description]
          */
-        plugin.init = function() {
+        plugin.init = function()
+        {
             plugin.settings = $.extend({}, defaults, $element.data(), options);
             // Container for sheeps.
             $wrapper = (plugin.settings.container) ? $element.find(plugin.settings.container) : $element;
@@ -64,7 +65,8 @@
          *   - Called after an AJAX call. (that's why it's public ;) )
          * @return void
          */
-        plugin.execute = function() {
+        plugin.execute = function()
+        {
             // Init the sheeper with existing sheeps.
             if (numberOfSheeps() > 0) {
                 $wrapper.children().each(function() {
@@ -103,7 +105,8 @@
          * @param  Element e  Opt: the sheep to add to the herd.
          * @return void.
          */
-        var sheep = function(e) {
+        var sheep = function(e)
+        {
             if (numberOfSheeps() >= plugin.settings.max) {
                 return;
             }
@@ -157,7 +160,8 @@
          * @param  Element e The '.unsheep-link' clicked.
          * @return void
          */
-        var unsheep = function(e) {
+        var unsheep = function(e)
+        {
             if (numberOfSheeps() > plugin.settings.min) {
                 var $sheep = $(e).parents(plugin.settings.selector);
                 plugin.settings.beforeUnsheep($sheep);
@@ -182,7 +186,8 @@
             refresh();
         }
 
-        var moveUp = function(e) {
+        var moveUp = function(e)
+        {
             var $sheep = $(e).parents(plugin.settings.selector),
                 $previous = $sheep.prev();
             if($previous.length) {
@@ -192,7 +197,8 @@
             refresh();
         }
 
-        var moveDown = function(e) {
+        var moveDown = function(e)
+        {
             var $sheep = $(e).parents(plugin.settings.selector),
                 $next = $sheep.next();
             if($next.length) {
@@ -202,11 +208,13 @@
             refresh();
         }
 
-        var numberOfSheeps = function() {
+        var numberOfSheeps = function()
+        {
             return $wrapper.find(plugin.settings.selector).length;
         }
 
-        var refresh = function() {
+        var refresh = function()
+        {
             var $sheeps = $wrapper.children();
             $sheeps.each(function(i, e) {
                 var $e = $(e);
@@ -222,11 +230,13 @@
             $sheeps.last().find(plugin.settings.moveDownSelector).addClass("disabled");
         }
 
-        var enableSheep = function() {
+        var enableSheep = function()
+        {
             $wrapper.find(plugin.settings.addSelector).removeClass("disabled");
         }
 
-        var disableSheep = function() {
+        var disableSheep = function()
+        {
             $wrapper.find(plugin.settings.addSelector).addClass("disabled");
         }
 
@@ -234,18 +244,21 @@
          * Enable the ability to unhseep.
          * @return void
          */
-        var enableUnsheep = function() {
+        var enableUnsheep = function()
+        {
             $wrapper.find(plugin.settings.removeSelector).removeClass("disabled");
         }
         /**
          * Disable the ability to unsheep.
          * @return void
          */
-        var disableUnsheep = function() {
+        var disableUnsheep = function()
+        {
             $wrapper.find(plugin.settings.removeSelector).addClass("disabled");
         }
 
-        var getId = function() {
+        var getId = function()
+        {
             var id = 0;
             while(ids.indexOf(id) !== -1) {
                 id++;
@@ -256,6 +269,7 @@
 
         plugin.init();
     }
+
     $.fn.sheeper = $.fn.inputSheeper = function(options) {
         return this.each(function() {
             if (undefined == $(this).data('inputSheeper')) {
