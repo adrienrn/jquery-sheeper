@@ -213,23 +213,6 @@
             return $wrapper.find(plugin.settings.selector).length;
         }
 
-        var refresh = function()
-        {
-            var $sheeps = $wrapper.children();
-            $sheeps.each(function(i, e) {
-                var $e = $(e);
-                $e.find(plugin.settings.moveUpSelector).each(function(i, e) {
-                    $(e).removeClass("disabled");
-                });
-                $e.find(plugin.settings.moveDownSelector).each(function(i, e) {
-                    $(e).removeClass("disabled");
-                });
-            });
-
-            $sheeps.first().find(plugin.settings.moveUpSelector).addClass("disabled");
-            $sheeps.last().find(plugin.settings.moveDownSelector).addClass("disabled");
-        }
-
         var enableSheep = function()
         {
             $wrapper.find(plugin.settings.addSelector).removeClass("disabled");
@@ -255,6 +238,23 @@
         var disableUnsheep = function()
         {
             $wrapper.find(plugin.settings.removeSelector).addClass("disabled");
+        }
+
+        var refresh = function()
+        {
+            var $sheeps = $wrapper.children();
+            $sheeps.each(function(i, e) {
+                var $e = $(e);
+                $e.find(plugin.settings.moveUpSelector).each(function(i, e) {
+                    $(e).removeClass("disabled");
+                });
+                $e.find(plugin.settings.moveDownSelector).each(function(i, e) {
+                    $(e).removeClass("disabled");
+                });
+            });
+
+            $sheeps.first().find(plugin.settings.moveUpSelector).addClass("disabled");
+            $sheeps.last().find(plugin.settings.moveDownSelector).addClass("disabled");
         }
 
         var getId = function()
