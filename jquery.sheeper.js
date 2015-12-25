@@ -68,18 +68,18 @@
         plugin.execute = function()
         {
             // Init the sheeper with existing sheeps.
-            if (numberOfSheeps() > 0) {
+            if (plugin.numberOfSheeps() > 0) {
                 $wrapper.children().each(function() {
                     sheep(this);
                 });
             }
             // If there's not enough sheeps in the herd, just sheep !
-            if (numberOfSheeps() < plugin.settings.min) {
-                for (var i = 0; i < (plugin.settings.min - numberOfSheeps()); i++) {
+            if (plugin.numberOfSheeps() < plugin.settings.min) {
+                for (var i = 0; i < (plugin.settings.min - plugin.numberOfSheeps()); i++) {
                     sheep();
                 }
             }
-            if (numberOfSheeps() === plugin.settings.min) {
+            if (plugin.numberOfSheeps() === plugin.settings.min) {
                 disableUnsheep();
             }
             // Actives the add link.
@@ -107,7 +107,7 @@
          */
         var sheep = function(e)
         {
-            if (numberOfSheeps() >= plugin.settings.max) {
+            if (plugin.numberOfSheeps() >= plugin.settings.max) {
                 return;
             }
             if (e) {
@@ -142,12 +142,12 @@
                     $.Event('sheeped.jq.sheeper', {})
                 );
             }
-            if (numberOfSheeps() > plugin.settings.min) {
+            if (plugin.numberOfSheeps() > plugin.settings.min) {
                 enableUnsheep();
             } else {
                 disableUnsheep();
             }
-            if (numberOfSheeps() < plugin.settings.max) {
+            if (plugin.numberOfSheeps() < plugin.settings.max) {
                 enableSheep();
             } else {
                 disableSheep();
@@ -162,7 +162,7 @@
          */
         var unsheep = function(e)
         {
-            if (numberOfSheeps() > plugin.settings.min) {
+            if (plugin.numberOfSheeps() > plugin.settings.min) {
                 var $sheep = $(e).parents(plugin.settings.selector);
                 plugin.settings.beforeUnsheep($sheep);
                 $sheep.trigger(
@@ -179,7 +179,7 @@
                     })
                 );
             }
-            if (numberOfSheeps() === plugin.settings.min) {
+            if (plugin.numberOfSheeps() === plugin.settings.min) {
                 disableUnsheep();
             }
 
@@ -208,7 +208,7 @@
             refresh();
         }
 
-        var numberOfSheeps = function()
+        plugin.numberOfSheeps = function()
         {
             return $wrapper.find(plugin.settings.selector).length;
         }
