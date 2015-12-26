@@ -25,6 +25,24 @@
                 },
                 afterUnsheep: function(element) {
                     return true;
+                },
+                beforeMove: function(element) {
+                    return true;
+                },
+                afterMove: function(element) {
+                    return true;
+                },
+                beforeMoveUp: function(element) {
+                    return true;
+                },
+                afterMoveUp: function(element) {
+                    return true;
+                },
+                beforeMoveDown: function(element) {
+                    return true;
+                },
+                afterMoveDown: function(element) {
+                    return true;
                 }
             },
             $element = $(element),
@@ -222,8 +240,16 @@
                 $previous = $sheep.prev(plugin.settings.selector);
 
             if($previous.length) {
+                // Setup some callbacks.
+                plugin.settings.beforeMove($sheep);
+                plugin.settings.beforeMoveUp($sheep);
+
                 updateIndex($sheep, $previous);
                 $sheep.detach().insertBefore($previous);
+
+                // Setup some callbacks.
+                plugin.settings.afterMoveUp($sheep);
+                plugin.settings.afterMove($sheep);
             }
 
             refresh();
@@ -240,8 +266,16 @@
                 $next = $sheep.next(plugin.settings.selector);
 
             if($next.length) {
+                // Setup some callbacks.
+                plugin.settings.beforeMove($sheep);
+                plugin.settings.beforeMoveDown($sheep);
+
                 updateIndex($sheep, $next);
                 $sheep.detach().insertAfter($next);
+
+                // Setup some callbacks.
+                plugin.settings.afterMoveDown($sheep);
+                plugin.settings.afterMove($sheep);
             }
 
             refresh();
