@@ -8,9 +8,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jekyll');
 
   var jsSrc = [
+    'bower_components/jquery/dist/jquery.js',
     'jquery.sheeper.js'
   ];
-  var jsDist = 'dist/main.js';
+  var jsDist = 'docs/assets/js/demo.js';
 
   // Configuration de Grunt
   grunt.initConfig({
@@ -32,19 +33,8 @@ module.exports = function(grunt) {
         dest: jsDist
       }
     },
-    copy: {
-      docs: {
-        expand: true,
-        cwd: 'dist/',
-        src: [
-          '**/*'
-        ],
-        dest: 'docs/dist/'
-      }
-    },
     jekyll: {
       options: {
-        //bundleExec: true
       },
       docs: {
         options: {
@@ -69,7 +59,7 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', ['scripts:dev']);
   grunt.registerTask('dist', ['styles:dist', 'scripts:dist']);
 
-  grunt.registerTask('scripts:dev', ['concat:compile', 'copy:docs']);
+  grunt.registerTask('scripts:dev', ['concat:compile']);
 
   grunt.registerTask('scripts:dist', ['uglify:compile']);
 };
