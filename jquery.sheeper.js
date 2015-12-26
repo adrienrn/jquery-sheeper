@@ -95,18 +95,38 @@
             // Actives the add link.
             $element.find(plugin.settings.addSelector).on("click", function(e) {
                 e.preventDefault();
+
+                if($(this).is(".disabled,:disabled")) {
+                    return;
+                }
+
                 sheep();
             });
             $wrapper.on("click", plugin.settings.removeSelector, function(e) {
                 e.preventDefault();
+
+                if($(this).is(".disabled,:disabled")) {
+                    return;
+                }
+
                 unsheep(this);
             });
             $wrapper.on("click", plugin.settings.moveUpSelector, function(e) {
                 e.preventDefault();
+
+                if($(this).is(".disabled,:disabled")) {
+                    return;
+                }
+
                 moveUp(this);
             });
             $wrapper.on("click", plugin.settings.moveDownSelector, function(e) {
                 e.preventDefault();
+
+                if($(this).is(".disabled,:disabled")) {
+                    return;
+                }
+
                 moveDown(this);
             });
         }
@@ -212,7 +232,7 @@
         var moveUp = function(e)
         {
             var $sheep = $(e).parents(plugin.settings.selector),
-                $previous = $sheep.prev();
+                $previous = $sheep.prev(plugin.settings.selector);
 
             if($previous.length) {
                 updateIndex($sheep, $previous);
@@ -230,7 +250,7 @@
         var moveDown = function(e)
         {
             var $sheep = $(e).parents(plugin.settings.selector),
-                $next = $sheep.next();
+                $next = $sheep.next(plugin.settings.selector);
 
             if($next.length) {
                 updateIndex($sheep, $next);
@@ -240,10 +260,14 @@
             refresh();
         }
 
+        plugin.getSheeps = function()
+        {
+            return $wrapper.children(plugin.settings.selector);
+        }
 
         plugin.numberOfSheeps = function()
         {
-            return $wrapper.find(plugin.settings.selector).length;
+            return plugin.getSheeps().length;
         }
 
         var enableSheep = function()
@@ -275,7 +299,10 @@
 
         var refresh = function()
         {
-            var $sheeps = $wrapper.children();
+            // Get sheeps list.
+            var $sheeps = plugin.getSheeps();
+
+            // Remove .disabled class on every move up & move down trigger.
             $sheeps.each(function(i, e) {
                 var $e = $(e);
                 $e.find(plugin.settings.moveUpSelector).each(function(i, e) {
@@ -286,7 +313,10 @@
                 });
             });
 
+            // Disable move up for the first sheep.
             $sheeps.first().find(plugin.settings.moveUpSelector).addClass("disabled");
+
+            // Disable move down for the last sheep.
             $sheeps.last().find(plugin.settings.moveDownSelector).addClass("disabled");
         }
 
