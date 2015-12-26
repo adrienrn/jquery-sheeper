@@ -167,7 +167,7 @@
 
                 if(id === undefined) {
                     // data-sheep-id is not defined on the element, making one.
-                    id = getId();
+                    id = generateId();
                     $e.data("sheep-id", id);
                 }
 
@@ -178,7 +178,7 @@
                     $.Event('sheeped.jq.sheeper', {})
                 );
             } else {
-                var id = getId();
+                var id = generateId();
 
                 // Creates a new sheep from template.
                 var $sheep = $(plugin.settings.prototype.replace(plugin.settings.placeholder, id));
@@ -426,7 +426,7 @@
          * Generate a new (unused) sheep id.
          * @return Int
          */
-        var getId = function()
+        var generateId = function()
         {
             var id = 0;
             while($.inArray(id, ids) !== -1) {
