@@ -41,18 +41,23 @@
             // Container for sheeps.
             $wrapper = (plugin.settings.container) ? $element.find(plugin.settings.container) : $element;
 
+            if(! plugin.settings.prototype) {
+                console.error("No template found. Please provide a template using the 'prototype' javascript option or data-prototype HTML attribute.");
+                return;
+            }
+
             if(plugin.settings.prototype.match('^(#|\\.)[a-zA-Z].*')) {
                 // Prototype is an id (#) or a class (.)
                 var $template = $(plugin.settings.prototype);
 
+                if ($template.length === 0) {
+                    console.error("No template found. Prototype '" + plugin.settings.prototype + "' does not exists.");
+                    return;
+                }
+
                 // Hide the template and retrieve its content for latter use.
                 $template.hide();
                 plugin.settings.prototype = $template.html();
-            }
-
-            if(! plugin.settings.prototype) {
-                console.error("No template found. Please provide a template using the 'prototype' javascript option or data-prototype HTML attribute");
-                return;
             }
 
             // Do some init / apply stuffs.
