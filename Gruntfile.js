@@ -45,7 +45,7 @@ module.exports = function(grunt) {
     },
     watch: {
       scripts: {
-        files: 'src/**/*.js',
+        files: 'jquery.sheeper.js',
         tasks: ['scripts:dev']
       },
       docs: {
