@@ -174,7 +174,7 @@
         var unsheep = function(e)
         {
             if (plugin.numberOfSheeps() > plugin.settings.min) {
-                var $sheep = $(e).parents(plugin.settings.selector);
+                var $sheep = $(e).closest(plugin.settings.selector);
                 plugin.settings.beforeUnsheep($sheep);
                 $sheep.trigger(
                     $.Event('unsheep.jq.sheeper', {})
