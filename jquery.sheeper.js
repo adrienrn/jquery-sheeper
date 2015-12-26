@@ -108,9 +108,7 @@
                     sheep();
                 }
             }
-            if (plugin.numberOfSheeps() === plugin.settings.min) {
-                disableUnsheep();
-            }
+
             // Actives the add link.
             $element.find(plugin.settings.addSelector).on("click", function(e) {
                 e.preventDefault();
@@ -402,7 +400,7 @@
           // Get all fields within element2.
           var $fields2 = $element2.find("input, select, textarea");
 
-          if ($fields1.length === 0 || $fields.length === 0) {
+          if ($fields1.length === 0 || $fields2.length === 0) {
             // Skip; no input / select / textarea in sheep template.
             return;
           }
