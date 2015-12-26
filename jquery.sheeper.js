@@ -118,7 +118,13 @@
             if (e) {
                 // Only registers the sheep in the herd.
                 var $e = $(e),
-                    id = $(e).data("sid");
+                    id = $(e).data("sheep-id");
+
+                if(id === undefined) {
+                    // data-sheep-id is not defined on the element, making one.
+                    id = getId();
+                    $e.data("sheep-id", id);
+                }
 
                 ids.push(id);
 
@@ -133,7 +139,7 @@
                 var $sheep = $(plugin.settings.prototype.replace(/(__|\{\{)\s?name\s?(__|\}\})/gi, id));
 
                 // Sets the sheep ID.
-                $sheep.data("sid", id);
+                $sheep.data("sheep-id", id);
                 ids.push(id);
 
                 if (plugin.settings.prepend) {
