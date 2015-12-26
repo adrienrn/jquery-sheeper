@@ -309,6 +309,11 @@
           // Get all fields within element2.
           var $fields2 = $element2.find("input, select, textarea");
 
+          if ($fields1.length === 0 || $fields.length === 0) {
+            // Skip; no input / select / textarea in sheep template.
+            return;
+          }
+
           // Defines root name attributes to be swaped.
           var rootName1 = findRootNameAttr($fields1),
               rootName2 = findRootNameAttr($fields2);
