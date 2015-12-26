@@ -201,7 +201,9 @@
         {
             var $sheep = $(e).parents(plugin.settings.selector),
                 $previous = $sheep.prev();
+
             if($previous.length) {
+                updateIndex($sheep, $previous);
                 $sheep.detach().insertBefore($previous);
             }
 
@@ -212,7 +214,9 @@
         {
             var $sheep = $(e).parents(plugin.settings.selector),
                 $next = $sheep.next();
+
             if($next.length) {
+                updateIndex($sheep, $next);
                 $sheep.detach().insertAfter($next);
             }
 
@@ -266,6 +270,58 @@
 
             $sheeps.first().find(plugin.settings.moveUpSelector).addClass("disabled");
             $sheeps.last().find(plugin.settings.moveDownSelector).addClass("disabled");
+        }
+
+        /**
+         * Get the longest commong string in an array of strings.
+         *   Ex. ['interspecies', 'interstelar', 'interstate'])  => 'inters'
+         * @param  Array<String> array
+         * @return String
+         */
+        var sharedStart = function(array) {
+          var A= array.concat().sort(),
+          a1= A[0], a2= A[A.length-1], L= a1.length, i= 0;
+          while(i<L && a1.charAt(i)=== a2.charAt(i)) i++;
+          return a1.substring(0, i);
+        }
+
+        /**
+         * Find the root name attribute to swap on move-up / move-down.
+         * @param  Array array
+         * @return String
+         */
+        var findRootNameAttr = function($fields) {
+          return sharedStart($fields.map(function(i, e) {
+            return $(e).attr('name');
+          }).get());
+        }
+
+        /**
+         * Swap sheep id and form name.
+         * @param  jQuery $element1
+         * @param  jQuery $element2
+         */
+        var updateIndex = function ($element1, $element2)
+        {
+          // Get all fields within element1.
+          var $fields1 = $element1.find("input, select, textarea");
+
+          // Get all fields within element2.
+          var $fields2 = $element2.find("input, select, textarea");
+
+          // Defines root name attributes to be swaped.
+          var rootName1 = findRootNameAttr($fields1),
+              rootName2 = findRootNameAttr($fields2);
+
+          // Replace names from $element1 by those in $elements2
+          $fields1.each(function (i, e) {
+            $(e).attr('name', $(e).attr('name').replace(rootName1, rootName2));
+          });
+
+          // Replace names from $element2 by those in $elements1
+          $fields2.each(function (i, e) {
+            $(e).attr('name', $(e).attr('name').replace(rootName2, rootName1));
+          });
         }
 
         var getId = function()
