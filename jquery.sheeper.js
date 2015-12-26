@@ -7,6 +7,7 @@
         var plugin = this,
             defaults = {
                 selector: ".sheep", // Each sheep must have this selector in template.
+                placeholder: /(__|\{\{\s?)NAME(__|\}\}\s?)/gi,
                 addSelector: ".sheep-link", // Add button (new sheep in the list).
                 removeSelector: ".unsheep-link", // Remove button in the prototype.
                 moveUpSelector: ".sheepup-link", // Move up button in the prototype.
@@ -66,7 +67,7 @@
                 return;
             }
 
-            if(plugin.settings.prototype.match('^(#|\\.)[a-zA-Z].*')) {
+            if(plugin.settings.prototype.match(/^(#|\\.)[a-zA-Z].*/)) {
                 // Prototype is an id (#) or a class (.)
                 var $template = $(plugin.settings.prototype);
 
@@ -179,8 +180,8 @@
             } else {
                 var id = getId();
 
-                // Creates a new sheep.
-                var $sheep = $(plugin.settings.prototype.replace(/(__|\{\{)\s?name\s?(__|\}\})/gi, id));
+                // Creates a new sheep from template.
+                var $sheep = $(plugin.settings.prototype.replace(plugin.settings.placeholder, id));
 
                 // Sets the sheep ID.
                 $sheep.data("sheep-id", id);
