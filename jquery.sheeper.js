@@ -294,11 +294,19 @@
             $sheeps.last().find(plugin.settings.moveDownSelector).addClass("disabled");
         }
 
+        /**
+         * Enable the "sheep" feature.
+         * @return void
+         */
         var enableSheep = function()
         {
             $wrapper.find(plugin.settings.addSelector).removeClass("disabled");
         }
 
+        /**
+         * Disable the "unsheep" feature.
+         * @return void
+         */
         var disableSheep = function()
         {
             $wrapper.find(plugin.settings.addSelector).addClass("disabled");
@@ -312,6 +320,7 @@
         {
             $wrapper.find(plugin.settings.removeSelector).removeClass("disabled");
         }
+
         /**
          * Disable the ability to unsheep.
          * @return void
