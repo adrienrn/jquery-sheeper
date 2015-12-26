@@ -334,7 +334,7 @@
         var getId = function()
         {
             var id = 0;
-            while(ids.indexOf(id) !== -1) {
+            while($.inArray(id, ids) !== -1) {
                 id++;
             }
 
