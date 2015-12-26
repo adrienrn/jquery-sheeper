@@ -179,16 +179,6 @@
                     $.Event('sheeped.jq.sheeper', {})
                 );
             }
-            if (plugin.numberOfSheeps() > plugin.settings.min) {
-                enableUnsheep();
-            } else {
-                disableUnsheep();
-            }
-            if (plugin.numberOfSheeps() < plugin.settings.max) {
-                enableSheep();
-            } else {
-                disableSheep();
-            }
 
             refresh();
         }
@@ -216,9 +206,6 @@
                         relatedTarget: $sheep
                     })
                 );
-            }
-            if (plugin.numberOfSheeps() === plugin.settings.min) {
-                disableUnsheep();
             }
 
             refresh();
@@ -270,6 +257,43 @@
             return plugin.getSheeps().length;
         }
 
+        var refresh = function()
+        {
+            // Get sheeps list.
+            var $sheeps = plugin.getSheeps();
+
+            // Enable/Disable sheeping.
+            if (plugin.numberOfSheeps() > plugin.settings.min) {
+                enableUnsheep();
+            } else {
+                disableUnsheep();
+            }
+
+            // Enable/Disable unsheeping.
+            if (plugin.numberOfSheeps() < plugin.settings.max) {
+                enableSheep();
+            } else {
+                disableSheep();
+            }
+
+            // Remove .disabled class on every move up & move down trigger.
+            $sheeps.each(function(i, e) {
+                var $e = $(e);
+                $e.find(plugin.settings.moveUpSelector).each(function(i, e) {
+                    $(e).removeClass("disabled");
+                });
+                $e.find(plugin.settings.moveDownSelector).each(function(i, e) {
+                    $(e).removeClass("disabled");
+                });
+            });
+
+            // Disable move up for the first sheep.
+            $sheeps.first().find(plugin.settings.moveUpSelector).addClass("disabled");
+
+            // Disable move down for the last sheep.
+            $sheeps.last().find(plugin.settings.moveDownSelector).addClass("disabled");
+        }
+
         var enableSheep = function()
         {
             $wrapper.find(plugin.settings.addSelector).removeClass("disabled");
@@ -295,29 +319,6 @@
         var disableUnsheep = function()
         {
             $wrapper.find(plugin.settings.removeSelector).addClass("disabled");
-        }
-
-        var refresh = function()
-        {
-            // Get sheeps list.
-            var $sheeps = plugin.getSheeps();
-
-            // Remove .disabled class on every move up & move down trigger.
-            $sheeps.each(function(i, e) {
-                var $e = $(e);
-                $e.find(plugin.settings.moveUpSelector).each(function(i, e) {
-                    $(e).removeClass("disabled");
-                });
-                $e.find(plugin.settings.moveDownSelector).each(function(i, e) {
-                    $(e).removeClass("disabled");
-                });
-            });
-
-            // Disable move up for the first sheep.
-            $sheeps.first().find(plugin.settings.moveUpSelector).addClass("disabled");
-
-            // Disable move down for the last sheep.
-            $sheeps.last().find(plugin.settings.moveDownSelector).addClass("disabled");
         }
 
         /**
