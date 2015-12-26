@@ -79,9 +79,9 @@
                 });
             }
 
-            var countSheepsAtInit = plugin.numberOfSheeps();
             // If there's not enough sheeps in the herd, just sheep !
-            if (plugin.numberOfSheeps() < plugin.settings.min) {
+            var countSheepsAtInit = plugin.numberOfSheeps();
+            if (countSheepsAtInit < plugin.settings.min) {
                 for (var i = 0; i < (plugin.settings.min - countSheepsAtInit); i++) {
                     sheep();
                 }
