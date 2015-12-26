@@ -30,7 +30,9 @@
             $element = $(element),
             $wrapper,
             ids = [];
+
         plugin.settings = {};
+
         /**
          *
          * @return {[type]} [description]
@@ -64,6 +66,7 @@
             plugin.execute();
             plugin.settings.afterInit($element);
         };
+
         /**
          * Inits / apply DOM to this sheeper.
          *   - Called when init. @see init.
@@ -107,6 +110,7 @@
                 moveDown(this);
             });
         }
+
         /**
          * Creates (or registers) a new sheep in the herd.
          * @param  Element e  Opt: the sheep to add to the herd.
@@ -168,6 +172,7 @@
 
             refresh();
         }
+
         /**
          * Deletes a sheep element.
          * @param  Element e The '.unsheep-link' clicked.
@@ -199,6 +204,11 @@
             refresh();
         }
 
+        /**
+         * Move up sheep element.
+         * @param  Element e The '.move-up-sheep-link' clicked.
+         * @return void
+         */
         var moveUp = function(e)
         {
             var $sheep = $(e).parents(plugin.settings.selector),
@@ -212,6 +222,11 @@
             refresh();
         }
 
+        /**
+         * Move down sheep element.
+         * @param  Element e The '.move-down-sheep-link' clicked.
+         * @return void
+         */
         var moveDown = function(e)
         {
             var $sheep = $(e).parents(plugin.settings.selector),
@@ -224,6 +239,7 @@
 
             refresh();
         }
+
 
         plugin.numberOfSheeps = function()
         {
@@ -331,6 +347,10 @@
           });
         }
 
+        /**
+         * Generate a new (unused) sheep id.
+         * @return Int
+         */
         var getId = function()
         {
             var id = 0;
