@@ -1,0 +1,11 @@
+-
+    name: prototype
+    type: String
+    default:
+    description: >
+        The template to use when creating sheeps.
+
+        This can be either a string – with HTML in it – or an id or class.
+
+        Why prototype ? This came from Symfony naming for forms prototype.
+    required: true
