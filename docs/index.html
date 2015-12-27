@@ -52,11 +52,22 @@ title: Home
 </table>
 
 <h2>Events / Callbacks</h2>
-
+<table>
+    <tr>
+        <td>Event</td>
+        <td>Description</td>
+    </tr>
+    {% for event in site.data.events %}
+        <tr>
+            <td>``` {{ event.name }} ```</td>
+            <td>{{ event.description }}</td>
+        </tr>
+    {% endfor %}
+</table>
 
 <h2>Symfony integration</h2>
 
-<h2>Sheep-ception</h2>
+<h2>Sheepception</h2>
 
 <p>What about sheeper inside sheeper ? It has been done, it works for the most part but it's still experimental.</p>
 
