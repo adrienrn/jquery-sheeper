@@ -3,20 +3,60 @@ layout: default
 title: Home
 ---
 
-{{ site.description }}
+<h2>Brief</h2>
+<p>{{ site.description }}</p>
 
-<h2>Demo</h2>
-Here's a basic demo of what the sheeper can do.
 <div class="card-demo">
-  <script id="demo-prototype1" type="text/template">
-    {% include _template-demo.html %}
-  </script>
   <div class="card-block">
     <div class="">Example</div>
-
-    <div class="" data-toggle="sheeper" data-prototype="#demo-prototype1" data-min="2" data-max="4">
-      <a class="sheep-link" href="#">Sheep it!</a>
-      This is a beautiful sheeper!
-    </div>
+    {% include _demo1.html %}
+    <script id="demo1-prototype" type="text/template">
+      {% include _template-demo.html %}
+    </script>
   </div>
 </div>
+
+<h2>Download</h2>
+<p>Head to our </p>
+
+<h2>Basic usage</h2>
+
+{% highlight html %}
+  {% include _demo1.html %}
+{% endhighlight %}
+
+{% highlight html %}
+  {% include _template-demo.html %}
+{% endhighlight %}
+
+<h2>Options</h2>
+
+<p>
+    jQuery Sheeper in fully customizable using options.
+</p>
+<table>
+    <tr>
+        <td>Name</td>
+        <td>Type</td>
+        <td>Default</td>
+        <td>Description</td>
+    </tr>
+    {% for option in site.data.options %}
+        <tr>
+            <td>{{ option.name }}</td>
+            <td>{{ option.type }}</td>
+            <td>{{ option.default }}</td>
+            <td>{{ option.description }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<h2>Events / Callbacks</h2>
+
+
+<h2>Symfony integration</h2>
+
+<h2>Sheep-ception</h2>
+
+<p>What about sheeper inside sheeper ? It has been done, it works for the most part but it's still experimental.</p>
+
