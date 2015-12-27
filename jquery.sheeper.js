@@ -158,28 +158,27 @@
             if (plugin.numberOfSheeps() >= plugin.settings.max) {
                 return;
             }
+
+            // Define the $sheep to be strict.
+            var $sheep = null;
+
             if (e) {
                 // Only registers the sheep in the herd.
-                var $e = $(e),
+                $sheep = $(e),
                     id = $(e).data("sheep-id");
 
                 if(id === undefined) {
                     // data-sheep-id is not defined on the element, making one.
                     id = generateId();
-                    $e.data("sheep-id", id);
+                    $sheep.data("sheep-id", id);
                 }
 
                 ids.push(id);
-
-                plugin.settings.afterSheep($e);
-                $e.trigger(
-                    $.Event('sheeped.jq.sheeper', {})
-                );
             } else {
                 var id = generateId();
 
                 // Creates a new sheep from template.
-                var $sheep = $(plugin.settings.prototype.replace(plugin.settings.placeholder, id));
+                $sheep = $(plugin.settings.prototype.replace(plugin.settings.placeholder, id));
 
                 // Sets the sheep ID.
                 $sheep.data("sheep-id", id);
@@ -190,12 +189,14 @@
                 } else {
                     $wrapper.append($sheep);
                 }
-                // Registers the sheep in the herd.
-                plugin.settings.afterSheep($sheep);
-                $sheep.trigger(
-                    $.Event('sheeped.jq.sheeper', {})
-                );
             }
+
+            plugin.settings.afterSheep($sheep);
+            $sheep.trigger(
+                $.Event('sheeped.jq.sheeper', {
+                    relatedTarget: $sheep[0]
+                })
+            );
 
             refresh();
         }
@@ -220,7 +221,7 @@
                 plugin.settings.afterUnsheep($sheep);
                 $wrapper.trigger(
                     $.Event('unsheeped.jq.sheeper', {
-                        relatedTarget: $sheep
+                        relatedTarget: $sheep[0]
                     })
                 );
             }
@@ -241,13 +242,35 @@
             if($previous.length) {
                 // Setup some callbacks.
                 plugin.settings.beforeMove($sheep);
+                $sheep.trigger(
+                    $.Event('moving.jq.sheeper', {
+                        relatedTarget: $previous[0]
+                    })
+                );
+
                 plugin.settings.beforeMoveUp($sheep);
+                $sheep.trigger(
+                    $.Event('moving-up.jq.sheeper', {
+                        relatedTarget: $previous[0]
+                    })
+                );
 
                 updateIndex($sheep, $previous);
                 $sheep.detach().insertBefore($previous);
 
                 // Setup some callbacks.
+                $sheep.trigger(
+                    $.Event('moved-up.jq.sheeper', {
+                        relatedTarget: $previous[0]
+                    })
+                );
                 plugin.settings.afterMoveUp($sheep);
+
+                $sheep.trigger(
+                    $.Event('moved.jq.sheeper', {
+                        relatedTarget: $previous[0]
+                    })
+                );
                 plugin.settings.afterMove($sheep);
             }
 
@@ -267,13 +290,35 @@
             if($next.length) {
                 // Setup some callbacks.
                 plugin.settings.beforeMove($sheep);
+                $sheep.trigger(
+                    $.Event('moving.jq.sheeper', {
+                        relatedTarget: $next[0]
+                    })
+                );
+
                 plugin.settings.beforeMoveDown($sheep);
+                $sheep.trigger(
+                    $.Event('moving-down.jq.sheeper', {
+                        relatedTarget: $next[0]
+                    })
+                );
 
                 updateIndex($sheep, $next);
                 $sheep.detach().insertAfter($next);
 
                 // Setup some callbacks.
+                $sheep.trigger(
+                    $.Event('moved-down.jq.sheeper', {
+                        relatedTarget: $next[0]
+                    })
+                );
                 plugin.settings.afterMoveDown($sheep);
+
+                $sheep.trigger(
+                    $.Event('moved.jq.sheeper', {
+                        relatedTarget: $next[0]
+                    })
+                );
                 plugin.settings.afterMove($sheep);
             }
 
