@@ -5,8 +5,13 @@ permalink:           pretty
 relative_permalinks: true
 
 # Setup
-title:               Poole
-tagline:             The Jekyll Butler
+title:               jQuery Sheeper
+tagline:             "Something smart will be there, soon."
+description: > # this means to ignore newlines until "baseurl:"
+  jQuery Sheeper lets you manage a herd of sheeps, creating and
+  reordering and removing chunks of HTML from a given template replacing what's
+  needed inside. Especially useful inside forms to append complex new form chunks.
+
 url:                 http://getpoole.com
 paginate:            1
 baseurl:             ""
@@ -20,11 +25,11 @@ sass:
 
 # About/contact
 author:
-  name:              Mark Otto
-  url:               https://twitter.com/mdo
-  email:             markdotto@gmail.com
+  name:              Hussard
+  url:               https://twitter.com/adrienrn
+  email:             hello@muchmuch.fr
 
 # Custom vars
-version:             2.0.0
+version:             1.2.0
 github:
-  repo:              https://github.com/poole/poole
+  repo:              https://github.com/adrienrn/jquery-sheeper

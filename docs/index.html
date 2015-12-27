@@ -3,31 +3,20 @@ layout: default
 title: Home
 ---
 
-<div class="posts">
-  {% for post in paginator.posts %}
-  <article class="post">
-    <h1 class="post-title">
-      <a href="{{ site.baseurl }}{{ post.url }}">
-        {{ post.title }}
-      </a>
-    </h1>
+{{ site.description }}
 
-    <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">{{ post.date | date_to_string }}</time>
+<h2>Demo</h2>
+Here's a basic demo of what the sheeper can do.
+<div class="card-demo">
+  <script id="demo-prototype1" type="text/template">
+    {% include _template-demo.html %}
+  </script>
+  <div class="card-block">
+    <div class="">Example</div>
 
-    {{ post.content }}
-  </article>
-  {% endfor %}
-</div>
-
-<div class="pagination">
-  {% if paginator.next_page %}
-    <a class="pagination-item older" href="{{ paginator.next_page_path | prepend: site.baseurl }}">Older</a>
-  {% else %}
-    <span class="pagination-item older">Older</span>
-  {% endif %}
-  {% if paginator.previous_page %}
-    <a class="pagination-item newer" href="{{ paginator.previous_page_path | prepend: site.baseurl }}">Newer</a>
-  {% else %}
-    <span class="pagination-item newer">Newer</span>
-  {% endif %}
+    <div class="" data-toggle="sheeper" data-prototype="#demo-prototype1" data-min="2" data-max="4">
+      <a class="sheep-link" href="#">Sheep it!</a>
+      This is a beautiful sheeper!
+    </div>
+  </div>
 </div>
