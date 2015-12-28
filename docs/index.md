@@ -9,7 +9,7 @@ title: Home
 
 <div class="card-demo">
   <div class="card-block">
-    <div class="">Example</div>
+    <div class="demo-label">Example</div>
     {% include _demo1.html %}
     <script id="demo1-prototype" type="text/template">
       {% include _template-demo.html %}
