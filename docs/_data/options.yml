@@ -1,11 +1,112 @@
 -
     name: prototype
-    type: String
-    default:
     description: >
-        The template to use when creating sheeps.
+        The template used when creating sheeps.
 
-        This can be either a string – with HTML in it – or an id or class.
+
+        This can be either a string – with HTML in it – or an id or class refering an existing HTML element in the DOM.
+
 
         Why prototype ? This came from Symfony naming for forms prototype.
     required: true
+
+-
+    name: container
+    description: >
+        See your sheeper div as your farm and the container as an enclosed plot of land inside it to separate your herd of sheeps from the rest of your farm.
+
+
+        By **default**, sheeps will be hold at the root of the sheeper. If you specify a selector for the the container, sheeps will be hold in the child element of the sheeper that matches that selector.
+    required: false
+
+-
+    name: selector
+    description: >
+        This is the class used to identify a sheep.
+
+
+        **Default:** `.sheep`
+    required: false
+
+-
+    name: placeholder
+    description: >
+        This is what gets replaced in the sheep prototype.
+
+        By default, it will accept :
+
+
+        *Symfony forms notation:*
+
+
+        `__NAME__` or `__name__`
+
+
+        *Conventional templating notation:*
+
+
+        `{{ NAME }}` or `{{ name }}`
+
+    required: false
+-
+    name: addSelector
+    description: >
+        Selector used to find the link that triggers the creation of a new sheep.
+
+
+        **Default:** `.sheep-link`
+    required: false
+
+-
+    name: removeSelector
+    description: >
+        Selector used to find the link(s) – inside the template – that triggers the deletion of a sheep.
+
+
+        **Default:** `.unsheep-link`
+    required: false
+
+-
+    name: moveUpSelector
+    description: >
+        Selector used to find the link(s) – inside the template – that triggers the move up of a sheep.
+
+
+        **Default:** `.sheepup-link`
+    required: false
+
+-
+    name: moveDownSelector
+    description: >
+        Selector used to find the link(s) – inside the template – that triggers the move down of a sheep.
+
+
+        **Default:** `.sheepdown-link`
+    required: false
+
+-
+    name: min
+    description: >
+        Minimum number of sheeps in the herd.
+
+
+        **Default:** `1`
+    required: false
+
+-
+    name: max
+    description: >
+        Maximumimum number of sheeps in the herd.
+
+
+        **Default:** `100`
+    required: false
+
+-
+    name: prepend
+    description: >
+        Tell the sheeper to prepend new sheeps at the beginning of the list instead of appending them at the end.
+
+
+        **Default:** `false`
+    required: false
