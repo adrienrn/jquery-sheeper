@@ -193,9 +193,7 @@
 
             plugin.settings.afterSheep($sheep);
             $sheep.trigger(
-                $.Event('sheeped.jq.sheeper', {
-                    relatedTarget: $sheep[0]
-                })
+                $.Event('sheeped.jq.sheeper', {})
             );
 
             refresh();
