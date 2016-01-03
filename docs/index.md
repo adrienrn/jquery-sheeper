@@ -43,10 +43,12 @@ jQuery Sheeper in fully customizable using options.
     {% for option in site.data.options %}
         <tr>
             <td>
-                {{ option.name }}
-                {% if option.required == true %}
-                    <span class="text-danger">&#42;</span>
-                {% endif %}
+                <span class="docs-highlight">
+                    {{ option.name }}<br />
+                    {% if option.required == true %}
+                        <small class="text-danger">(required)</small>
+                    {% endif %}
+                </span>
             </td>
             <td>{{ option.description|markdownify }}</td>
         </tr>
@@ -74,7 +76,7 @@ $("#demo1").on("sheeped.jq.sheeper", function(event) {
     {% for event in site.data.events %}
         <tr>
             <td>
-                {{ event.name }}
+                <span class="docs-highlight">{{ event.name }}</span>
             </td>
             <td>{{ event.description|markdownify }}</td>
         </tr>

@@ -7,7 +7,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: .5rem;
   font-weight: bold;
   line-height: 1.25;
-  color: #313131;
+  color: #434343;
   text-rendering: optimizeLegibility;
 }
 
@@ -33,6 +33,22 @@ h4, h5, h6 {
 p {
   margin-top: 0;
   margin-bottom: 1rem;
+}
+
+.text-default {
+  color: #515151;
+}
+
+.text-primary {
+  color: $brand-primary;
+}
+
+.text-secondary {
+  color: desaturate($brand-secondary, 40%);
+}
+
+.text-danger {
+  color: saturate(darken($brand-danger, 15%), 20%);
 }
 
 strong {
