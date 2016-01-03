@@ -37,8 +37,8 @@ jQuery Sheeper in fully customizable using options.
 
 <table>
     <tr>
-        <td>Name</td>
-        <td>Description</td>
+        <th>Name</th>
+        <th>Description</th>
     </tr>
     {% for option in site.data.options %}
         <tr>
@@ -68,8 +68,8 @@ $("#demo1").on("sheeped.jq.sheeper", function(event) {
 
 <table>
     <tr>
-        <td>Event</td>
-        <td>Description</td>
+        <th>Event</th>
+        <th>Description</th>
     </tr>
     {% for event in site.data.events %}
         <tr>
