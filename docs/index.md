@@ -38,16 +38,17 @@ jQuery Sheeper in fully customizable using options.
 <table>
     <tr>
         <td>Name</td>
-        <td>Type</td>
-        <td>Default</td>
         <td>Description</td>
     </tr>
     {% for option in site.data.options %}
         <tr>
-            <td>{{ option.name }}</td>
-            <td>{{ option.type }}</td>
-            <td>{{ option.default }}</td>
-            <td>{{ option.description }}</td>
+            <td>
+                {{ option.name }}
+                {% if option.required == true %}
+                    <span class="text-danger">&#42;</span>
+                {% endif %}
+            </td>
+            <td>{{ option.description|markdownify }}</td>
         </tr>
     {% endfor %}
 </table>
