@@ -74,7 +74,7 @@ $("#demo1").on("sheeped.jq.sheeper", function(event) {
     {% for event in site.data.events %}
         <tr>
             <td>
-                {{ "`event.name`"|markdownify }}
+                {{ event.name }}
             </td>
             <td>{{ event.description|markdownify }}</td>
         </tr>

@@ -1,4 +1,92 @@
 -
     name: sheeped.jq.sheeper
     description: >
-        `target` is the new sheep added to the herd
+        Fired **after** a new sheep as been created and added to the herd.
+
+
+        `event.target` is the new sheep added to the herd
+
+-
+    name: unsheep.jq.sheeper
+    description: >
+        Fired **before** a sheep is deleted.
+
+
+        `event.target` is the sheep due to be deleted from the herd
+
+-
+    name: unsheeped.jq.sheeper
+    description: >
+        Fired **after** a sheep has been deleted.
+
+
+        `event.target` is the container holding the sheeps.
+
+
+        `event.relatedTarget` is the sheep that has been removed from the herd.
+
+-
+    name: moving.jq.sheeper
+    description: >
+        Fired **before** a sheep is moving up or down.
+
+
+        `event.target` is the sheep that is moving.
+
+
+        `event.relatedTarget` is the other sheep moving, giving up his place to the sheep moving.
+
+-
+    name: moved.jq.sheeper
+    description: >
+        Fired **after** a sheep is moving up or down.
+
+
+        `event.target` is the sheep that is moving.
+
+
+        `event.relatedTarget` is the other sheep moving, giving up his place to the sheep moving.
+
+-
+    name: moving-up.jq.sheeper
+    description: >
+        Fired **before** a sheep is moving up.
+
+
+        `event.target` is the sheep that is moving up.
+
+
+        `event.relatedTarget` is the other sheep moving (down), giving up his place to the sheep moving.
+
+-
+    name: moved-up.jq.sheeper
+    description: >
+        Fired **after** a sheep is moving up.
+
+
+        `event.target` is the sheep that is moving up.
+
+
+        `event.relatedTarget` is the other sheep moving (down), giving up his place to the sheep moving.
+
+-
+    name: moving-down.jq.sheeper
+    description: >
+        Fired **before** a sheep is moving down.
+
+
+        `event.target` is the sheep that is moving down.
+
+
+        `event.relatedTarget` is the other sheep moving (up), giving up his place to the sheep moving.
+
+-
+    name: moved-down.jq.sheeper
+    description: >
+        Fired **after** a sheep is moving up.
+
+
+        `event.target` is the sheep that is moving down.
+
+
+        `event.relatedTarget` is the other sheep moving (up), giving up his place to the sheep moving.
