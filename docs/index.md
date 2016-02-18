@@ -3,10 +3,6 @@ layout: default
 title: Home
 ---
 
-## Brief
-
-{{ site.description }}
-
 <div class="card-demo">
   <div class="card-block">
     <div class="demo-label">Example</div>
@@ -16,6 +12,8 @@ title: Home
     </script>
   </div>
 </div>
+
+{{ site.description }}
 
 ## Download
 
