@@ -15,23 +15,39 @@ title: Home
 
 {{ site.description }}
 
-## Download
+<a href="{{ site.github.repo }}">
+  View on Github
+</a>
 
-Head to our
+## Usage
 
-## Basic usage
+First, you need to define your template.
+
+The safest way is to add a script tag in the head of your site with the type text/template. It will be picked up by its id.
+
+{% highlight html %}
+
+{% include _template-demo.html %}
+</script>
+{% endhighlight %}
+
+Then, you can initialize your sheeper. You can initialize this plugin via data-* attributes or via Javascript. Both of following syntax are equal.
 
 {% highlight html %}
   {% include _demo1.html %}
 {% endhighlight %}
 
-{% highlight html %}
-  {% include _template-demo.html %}
+{% highlight javascript %}
+$("#demo1").sheeper({
+  "prototype": "#demo1-prototype"
+});
 {% endhighlight %}
+
+Note the `prototype` option matching the template `id` attribute.
 
 ## Options
 
-jQuery Sheeper in fully customizable using options.
+{{ site.title }} is fully customizable using options.
 
 <table>
     <tr>
@@ -91,5 +107,5 @@ $("#demo1").on("sheeped.jq.sheeper", function(event) {
 
 ## Sheepception
 
-What about sheeper inside sheeper ? It has been done, it works for the most part but it's still experimental.
+`@TODO`
 
