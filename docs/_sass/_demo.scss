@@ -84,5 +84,9 @@
 
 .docs-highlight {
     font-weight: bold;
-    color: desaturate($brand-secondary, 40%);
+    color: #515151;
+}
+
+.docs-required {
+    color: $brand-danger;
 }

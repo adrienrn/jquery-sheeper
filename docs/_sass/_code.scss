@@ -11,8 +11,8 @@ pre {
 code {
   padding: .25em .5em;
   font-size: 85%;
-  color: lighten($brand-secondary, 5%);
-  background-color: desaturate(lighten($brand-secondary, 35%), 20%);
+  color: lighten($brand-primary, 5%);
+  background-color: desaturate(lighten($brand-primary, 35%), 20%);
   border-radius: 3px;
 }
 

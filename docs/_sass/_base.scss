@@ -65,18 +65,18 @@ table {
 td,
 th {
   padding: .25rem .5rem;
-  border: 1px solid #e5e5e5;
+  border: 1px solid lighten($brand-primary, 20%);
 }
 
 th {
   text-align: left;
+  color: $brand-primary;
 }
 
 td {
   vertical-align: top;
 }
 
-tbody tr:nth-child(odd) td,
-tbody tr:nth-child(odd) th {
-  background-color: #fcfcfc;
+tbody tr:nth-child(odd) td {
+  background-color: #fafafa;
 }

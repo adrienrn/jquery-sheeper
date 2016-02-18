@@ -44,7 +44,7 @@ jQuery Sheeper in fully customizable using options.
                 <span class="docs-highlight">
                     {{ option.name }}<br />
                     {% if option.required == true %}
-                        <small class="text-danger">(required)</small>
+                        <small class="docs-required">(required)</small>
                     {% endif %}
                 </span>
             </td>
