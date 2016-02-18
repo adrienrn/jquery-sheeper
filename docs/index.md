@@ -55,9 +55,11 @@ jQuery Sheeper in fully customizable using options.
 
 ## Events
 
-{{ site.title }} provides custom events to which you can listen to extend it. In previous versions (`< 1.1.0`), {{ site.title }} did not have any events and *callbacks* were used and are now **deprecated**.
+{{ site.title }} provides custom events to which you can listen to extend it. A very common use case is enabling Javascript on newly created element, like enabling jQuery Validate, initialize autocomplete fields like Google Maps, etc.
 
-A very common use case is enabling Javascript on newly created element, like enabling jQuery Validate, initialize autocomplete fields like Google Maps, etc.
+<div class="message">
+  In previous versions (< 1.1.0), {{ site.title }} did not have any events and *callbacks* were used and are now **deprecated**.
+</div>
 
 {% highlight javascript %}
 $("#demo1").on("sheeped.jq.sheeper", function(event) {
