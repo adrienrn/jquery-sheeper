@@ -1,0 +1,33 @@
+# Permalinks
+#
+# Use of `relative_permalinks` ensures post links from the index work properly.
+markdown:            kramdown
+highlighter:         rouge
+permalink:           pretty
+
+# Setup
+title:               jQuery Sheeper
+tagline:             "Javascript utility for DOM chunks cloning, well, typically form cloning."
+description: >
+  Flexible Javascript / jQuery plugin for form cloning from a given template or
+  any HTML chunks cloning. The plugin lets you add sheeps, remove or reorder
+  them, features lots of options and custom Javascript events and handles name
+  attributes for you.
+
+# Assets
+#
+# We specify the directory for Jekyll so we can use @imports.
+sass:
+  sass_dir:          _sass
+  style:            :compressed
+
+# About/contact
+author:
+  name:              Hussard
+  url:               https://twitter.com/adrienrn
+  email:             hello@muchmuch.fr
+
+# Custom vars
+version:             1.2.0
+github:
+  repo:              https://github.com/adrienrn/jquery-sheeper

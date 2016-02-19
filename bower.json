@@ -1,0 +1,26 @@
+{
+  "name": "jquery-sheeper",
+  "version": "1.2.0",
+  "homepage": "https://github.com/adrienrn/jquery-sheeper",
+  "authors": [
+    "Hussard <adrien.ricartnoblet@gmail.com>"
+  ],
+  "description": "Flexible jQuery plugin to dynamically create piece of forms (from a template)",
+  "main": "jquery.sheeper.js",
+  "keywords": [
+    "jquery",
+    "plugin",
+    "sheeper"
+  ],
+  "license": "Apache-2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ">=1.8.*"
+  }
+}
