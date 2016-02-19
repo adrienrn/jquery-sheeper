@@ -1,1 +1,420 @@
-jQuery Sheeper
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+    
+      jQuery Sheeper &middot; Javascript utility for DOM chunks cloning, well, typically form cloning.
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/styles.css">
+
+  <!-- JS -->
+  <script type="text/javascript" src="/assets/js/demo.js"></script>
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="jQuery Sheeper" href="/atom.xml">
+</head>
+
+
+  <body>
+    <header class="header">
+
+    </header>
+    <div class="container content">
+      <div class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">jQuery Sheeper</a>
+          <small>Javascript utility for DOM chunks cloning, well, typically form cloning.</small>
+        </h1>
+      </div>
+      <main class="main">
+        <div class="card-demo">
+  <div class="card-block">
+    <div class="demo-label">Example</div>
+    
+<div id="demo1" data-toggle="sheeper" data-prototype="#demo1-prototype">
+  <h6>
+    To-do list
+    &nbsp;<a class="sheep-link" href="#">Add new to-do</a>
+  </h6>
+</div>
+    <script id="demo1-prototype" type="text/template">
+      <div class="sheep">
+    <input type="text" name="demo1[__NAME__]" placeholder="Don't forget about..." value="" />
+    <div class="sheep-actions">
+        <a class="sheepup-link" href="#">Move up</a>
+        <a class="sheepdown-link" href="#">Move down</a>
+        <a class="unsheep-link" href="#">Delete</a>
+    </div>
+</div>
+    </script>
+  </div>
+</div>
+
+<p>Flexible Javascript / jQuery plugin for form cloning from a given template or any HTML chunks cloning. The plugin lets you add sheeps, remove or reorder them, features lots of options and custom Javascript events and handles name attributes for you.</p>
+
+<p><a href="https://github.com/adrienrn/jquery-sheeper">
+  View on Github
+</a></p>
+
+<h2 id="usage">Usage</h2>
+
+<p>First, you need to define your template.</p>
+
+<p>The safest way is to add a script tag in the head of your site with the type text/template. It will be picked up by its id.</p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">id=</span><span class="s">"demo1-prototype"</span> <span class="na">type=</span><span class="s">"text/template"</span><span class="nt">&gt;</span>
+<span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"sheep"</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text"</span> <span class="nx">name</span><span class="o">=</span><span class="s2">"demo1[__NAME__]"</span> <span class="nx">placeholder</span><span class="o">=</span><span class="s2">"Don't forget about..."</span> <span class="nx">value</span><span class="o">=</span><span class="s2">""</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"sheep-actions"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">a</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"sheepup-link"</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span><span class="nx">Move</span> <span class="nx">up</span><span class="o">&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">a</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"sheepdown-link"</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span><span class="nx">Move</span> <span class="nx">down</span><span class="o">&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">a</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"unsheep-link"</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span><span class="nx">Delete</span><span class="o">&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span><span class="nt">&lt;/script&gt;</span></code></pre></div>
+
+<p>Then, you can initialize your sheeper. You can initialize this plugin via data-* attributes or via Javascript. Both of following syntax are equal.</p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"demo1"</span> <span class="na">data-toggle=</span><span class="s">"sheeper"</span> <span class="na">data-prototype=</span><span class="s">"#demo1-prototype"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h6&gt;</span>
+    To-do list
+    <span class="ni">&amp;nbsp;</span><span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"sheep-link"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Add new to-do<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/h6&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s2">"#demo1"</span><span class="p">).</span><span class="nx">sheeper</span><span class="p">({</span>
+  <span class="s2">"prototype"</span><span class="p">:</span> <span class="s2">"#demo1-prototype"</span>
+<span class="p">});</span></code></pre></div>
+
+<p>Note the <code>prototype</code> option matching the template <code>id</code> attribute.</p>
+
+<h2 id="options">Options</h2>
+
+<p>jQuery Sheeper is fully customizable using options.</p>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">
+                    prototype<br />
+                    
+                        <small class="docs-required">(required)</small>
+                    
+                </span>
+            </td>
+            <td><p>The template used when creating sheeps.</p>
+
+<p>This can be either a string – with HTML in it – or an id or class refering an existing HTML element in the DOM.</p>
+
+<p>Why prototype ? This came from Symfony naming for forms prototype.</p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">
+                    container<br />
+                    
+                </span>
+            </td>
+            <td><p>See your sheeper div as your farm and the container as an enclosed plot of land inside it to separate your herd of sheeps from the rest of your farm.</p>
+
+<p>By <strong>default</strong>, sheeps will be hold at the root of the sheeper. If you specify a selector for the the container, sheeps will be hold in the child element of the sheeper that matches that selector.</p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">
+                    selector<br />
+                    
+                </span>
+            </td>
+            <td><p>This is the class used to identify a sheep.</p>
+
+<p><strong>Default:</strong> <code>.sheep</code></p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">
+                    placeholder<br />
+                    
+                </span>
+            </td>
+            <td><p>This is what gets replaced in the sheep prototype.
+By default, it will accept :</p>
+
+<p><em>Symfony forms notation:</em></p>
+
+<p><code>__NAME__</code> or <code>__name__</code></p>
+
+<p><em>Conventional templating notation:</em></p>
+
+<p><code>{{ NAME }}</code> or <code>{{ name }}</code></p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">
+                    addSelector<br />
+                    
+                </span>
+            </td>
+            <td><p>Selector used to find the link that triggers the creation of a new sheep.</p>
+
+<p><strong>Default:</strong> <code>.sheep-link</code></p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">
+                    removeSelector<br />
+                    
+                </span>
+            </td>
+            <td><p>Selector used to find the link(s) – inside the template – that triggers the deletion of a sheep.</p>
+
+<p><strong>Default:</strong> <code>.unsheep-link</code></p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">
+                    moveUpSelector<br />
+                    
+                </span>
+            </td>
+            <td><p>Selector used to find the link(s) – inside the template – that triggers the move up of a sheep.</p>
+
+<p><strong>Default:</strong> <code>.sheepup-link</code></p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">
+                    moveDownSelector<br />
+                    
+                </span>
+            </td>
+            <td><p>Selector used to find the link(s) – inside the template – that triggers the move down of a sheep.</p>
+
+<p><strong>Default:</strong> <code>.sheepdown-link</code></p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">
+                    min<br />
+                    
+                </span>
+            </td>
+            <td><p>Minimum number of sheeps in the herd.</p>
+
+<p><strong>Default:</strong> <code>1</code></p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">
+                    max<br />
+                    
+                </span>
+            </td>
+            <td><p>Maximumimum number of sheeps in the herd.</p>
+
+<p><strong>Default:</strong> <code>100</code></p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">
+                    prepend<br />
+                    
+                </span>
+            </td>
+            <td><p>Tell the sheeper to prepend new sheeps at the beginning of the list instead of appending them at the end.</p>
+
+<p><strong>Default:</strong> <code>false</code></p>
+</td>
+        </tr>
+    
+</table>
+
+<h2 id="events">Events</h2>
+
+<p>jQuery Sheeper provides custom events to which you can listen to extend it. A very common use case is enabling Javascript on newly created element, like enabling jQuery Validate, initialize autocomplete fields like Google Maps, etc.</p>
+
+<div class="message">
+  In previous versions (&lt; 1.1.0), jQuery Sheeper did not have any events and *callbacks* were used and are now **deprecated**.
+</div>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s2">"#demo1"</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">"sheeped.jq.sheeper"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Do something...</span>
+    <span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
+<span class="p">});</span></code></pre></div>
+
+<table>
+    <tr>
+        <th>Event</th>
+        <th>Description</th>
+    </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">sheeped.jq.sheeper</span>
+            </td>
+            <td><p>Fired <strong>after</strong> a new sheep as been created and added to the herd.</p>
+
+<p><code>event.target</code> is the new sheep added to the herd</p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">unsheep.jq.sheeper</span>
+            </td>
+            <td><p>Fired <strong>before</strong> a sheep is deleted.</p>
+
+<p><code>event.target</code> is the sheep due to be deleted from the herd</p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">unsheeped.jq.sheeper</span>
+            </td>
+            <td><p>Fired <strong>after</strong> a sheep has been deleted.</p>
+
+<p><code>event.target</code> is the container holding the sheeps.</p>
+
+<p><code>event.relatedTarget</code> is the sheep that has been removed from the herd.</p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">moving.jq.sheeper</span>
+            </td>
+            <td><p>Fired <strong>before</strong> a sheep is moving up or down.</p>
+
+<p><code>event.target</code> is the sheep that is moving.</p>
+
+<p><code>event.relatedTarget</code> is the other sheep moving, giving up his place to the sheep moving.</p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">moved.jq.sheeper</span>
+            </td>
+            <td><p>Fired <strong>after</strong> a sheep is moving up or down.</p>
+
+<p><code>event.target</code> is the sheep that is moving.</p>
+
+<p><code>event.relatedTarget</code> is the other sheep moving, giving up his place to the sheep moving.</p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">moving-up.jq.sheeper</span>
+            </td>
+            <td><p>Fired <strong>before</strong> a sheep is moving up.</p>
+
+<p><code>event.target</code> is the sheep that is moving up.</p>
+
+<p><code>event.relatedTarget</code> is the other sheep moving (down), giving up his place to the sheep moving.</p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">moved-up.jq.sheeper</span>
+            </td>
+            <td><p>Fired <strong>after</strong> a sheep is moving up.</p>
+
+<p><code>event.target</code> is the sheep that is moving up.</p>
+
+<p><code>event.relatedTarget</code> is the other sheep moving (down), giving up his place to the sheep moving.</p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">moving-down.jq.sheeper</span>
+            </td>
+            <td><p>Fired <strong>before</strong> a sheep is moving down.</p>
+
+<p><code>event.target</code> is the sheep that is moving down.</p>
+
+<p><code>event.relatedTarget</code> is the other sheep moving (up), giving up his place to the sheep moving.</p>
+</td>
+        </tr>
+    
+        <tr>
+            <td>
+                <span class="docs-highlight">moved-down.jq.sheeper</span>
+            </td>
+            <td><p>Fired <strong>after</strong> a sheep is moving up.</p>
+
+<p><code>event.target</code> is the sheep that is moving down.</p>
+
+<p><code>event.relatedTarget</code> is the other sheep moving (up), giving up his place to the sheep moving.</p>
+</td>
+        </tr>
+    
+</table>
+
+<h2 id="symfony-integration">Symfony integration</h2>
+
+<p>jQuery Sheeper has found its first use case scenario as part of a <a href="https://symfony.com/">Symfony2</a> project, working with <a href="http://symfony.com/doc/current/components/form/introduction.html">the Symfony Form components</a> and it still does.</p>
+
+<p><code>@TODO</code></p>
+
+<h2 id="sheepception">Sheepception</h2>
+
+<p><code>@TODO</code></p>
+
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2016-02-19T20:30:31+01:00">2016</time>. All rights reserved.
+        </small>
+      </footer>
+    </div>
+
+  </body>
+</html>
