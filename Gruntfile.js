@@ -1,36 +1,44 @@
 module.exports = function(grunt) {
 
-  // Je préfère définir mes imports tout en haut
-  grunt.loadNpmTasks('grunt-contrib-sass');
+  // Dependencies.
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-jekyll');
 
-  var jsSrc = [
-    'bower_components/jquery/dist/jquery.js',
-    'jquery.sheeper.js'
-  ];
-  var jsDist = 'docs/assets/js/demo.js';
+  // Definitions.
+  var jsSrc     = [
+        'jquery.sheeper.js'
+      ],
+      jsDeps    = [
+        'bower_components/jquery/dist/jquery.js'
+      ],
+      jsDist    = 'dist/jquery.sheeper.js',
+      jsDistMin = 'dist/jquery.sheeper.min.js',
+      jsDocs    = 'docs/assets/js/demo.js';
 
-  // Configuration de Grunt
+  // Configuration.
   grunt.initConfig({
     concat: {
       options: {
         separator: ';'
       },
-      compile: { // On renomme vu qu'on n'a pas de mode dev/dist. Dist étant une autre tâche : uglify
-        src: jsSrc, // Vu qu'on doit l'utiliser deux fois, autant en faire une variable.
-        dest: jsDist // Il existe des hacks plus intéressants mais ce n'est pas le sujet du post.
+      dist: {
+        src: jsSrc,
+        dest: jsDist
+      },
+      docs: {
+        src: jsDeps.concat(jsSrc),
+        dest: jsDocs
       }
     },
     uglify: {
       options: {
         separator: ';'
       },
-      compile: {
+      dist: {
         src: jsSrc,
-        dest: jsDist
+        dest: jsDistMin
       }
     },
     jekyll: {
@@ -45,21 +53,27 @@ module.exports = function(grunt) {
     },
     watch: {
       scripts: {
-        files: 'jquery.sheeper.js',
+        files: jsSrc,
         tasks: ['scripts:dev']
       },
       docs: {
         files: ['docs/**/*', '!docs/_site/**/*'],
-        tasks: ['jekyll']
+        tasks: ['docs']
       }
     }
   });
 
-  grunt.registerTask('default', ['dev', 'watch']);
+  // Dev
+  grunt.registerTask('scripts:dev', ['concat:dist', 'concat:docs']);
   grunt.registerTask('dev', ['scripts:dev']);
-  grunt.registerTask('dist', ['styles:dist', 'scripts:dist']);
 
-  grunt.registerTask('scripts:dev', ['concat:compile']);
+  // Docs
+  grunt.registerTask('docs', ['jekyll']);
 
-  grunt.registerTask('scripts:dist', ['uglify:compile']);
+  // Dist.
+  grunt.registerTask('scripts:dist', ['scripts:dev', 'uglify']);
+  grunt.registerTask('dist', ['scripts:dist']);
+
+  // Watch
+  grunt.registerTask('default', ['dev', 'watch']);
 };
