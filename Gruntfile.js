@@ -43,17 +43,13 @@ module.exports = function(grunt) {
     },
     jekyll: {
       options: {
+        src: 'docs/',
+        dest: 'docs/_site',
+        config: 'docs/_config.yml',
       },
-      dev: {
-        options: {
-          src: 'docs/',
-          dest: 'docs/_site'
-        }
-      },
+      dev: {},
       dist: {
         options: {
-          src: 'docs/',
-          dest: 'docs/_site',
           raw: 'baseurl: /jquery-sheeper'
         }
       }
