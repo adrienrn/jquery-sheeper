@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 
   // Definitions.
   var jsSrc     = [
-        'jquery.sheeper.js'
+        'src/jquery.sheeper.js'
       ],
       jsDeps    = [
         'bower_components/jquery/dist/jquery.js'
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
         tasks: ['scripts:dev']
       },
       docs: {
-        files: ['docs/**/*', '!docs/_site/**/*'],
+        files: ['docs/**/*', '!docs/_site/**/*', '!docs/assets/js/demo.js'],
         tasks: ['docs']
       }
     }
