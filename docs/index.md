@@ -26,7 +26,7 @@ First, you need to define your template.
 The safest way is to add a script tag in the head of your site with the type text/template. It will be picked up by its id.
 
 {% highlight html %}
-
+<script id="demo1-prototype" type="text/template">
 {% include _template-demo.html %}
 </script>
 {% endhighlight %}
