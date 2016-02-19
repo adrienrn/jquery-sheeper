@@ -4,7 +4,6 @@
 markdown:            kramdown
 highlighter:         rouge
 permalink:           pretty
-relative_permalinks: true
 
 # Setup
 title:               jQuery Sheeper
@@ -14,10 +13,6 @@ description: >
   any HTML chunks cloning. The plugin lets you add sheeps, remove or reorder
   them, features lots of options and custom Javascript events and handles name
   attributes for you.
-
-url:                 http://getpoole.com
-paginate:            1
-baseurl:             ""
 
 # Assets
 #

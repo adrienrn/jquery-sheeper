@@ -44,10 +44,17 @@ module.exports = function(grunt) {
     jekyll: {
       options: {
       },
-      docs: {
+      dev: {
         options: {
           src: 'docs/',
           dest: 'docs/_site'
+        }
+      },
+      dist: {
+        options: {
+          src: 'docs/',
+          dest: 'docs/_site',
+          raw: 'baseurl: /jquery-sheeper'
         }
       }
     },
@@ -58,7 +65,7 @@ module.exports = function(grunt) {
       },
       docs: {
         files: ['docs/**/*', '!docs/_site/**/*', '!docs/assets/js/demo.js'],
-        tasks: ['docs']
+        tasks: ['jekyll:dev']
       }
     }
   });
@@ -68,7 +75,8 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', ['scripts:dev']);
 
   // Docs
-  grunt.registerTask('docs', ['jekyll']);
+  grunt.registerTask('docs-dev', ['jekyll:dev']);
+  grunt.registerTask('docs-dist', ['jekyll:dist']);
 
   // Dist.
   grunt.registerTask('scripts:dist', ['scripts:dev', 'uglify']);
