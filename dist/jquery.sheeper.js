@@ -425,9 +425,13 @@
          * @return String
          */
         var findRootNameAttr = function($fields) {
-          return sharedStart($fields.map(function(i, e) {
+          // Filter form element without name.
+          var fieldNames = $.map($fields, function(e, i) {
             return $(e).attr('name');
-          }).get());
+          });
+
+          // Return shared start.
+          return sharedStart(fieldNames);
         }
 
         /**
@@ -439,9 +443,15 @@
         {
           // Get all fields within element1.
           var $fields1 = $element1.find("input, select, textarea");
+          $fields1 = $.grep($fields1, function(e, i) {
+            return (e.name !== "");
+          });
 
           // Get all fields within element2.
           var $fields2 = $element2.find("input, select, textarea");
+          $fields2 = $.grep($fields2, function(e, i) {
+            return (e.name !== "");
+          });
 
           if ($fields1.length === 0 || $fields2.length === 0) {
             // Skip; no input / select / textarea in sheep template.
@@ -453,12 +463,12 @@
               rootName2 = findRootNameAttr($fields2);
 
           // Replace names from $element1 by those in $elements2
-          $fields1.each(function (i, e) {
+          $.each($fields1, function (i, e) {
             $(e).attr('name', $(e).attr('name').replace(rootName1, rootName2));
           });
 
           // Replace names from $element2 by those in $elements1
-          $fields2.each(function (i, e) {
+          $.each($fields2, function (i, e) {
             $(e).attr('name', $(e).attr('name').replace(rootName2, rootName1));
           });
         }
