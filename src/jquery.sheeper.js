@@ -424,7 +424,7 @@
          * @param  Array array
          * @return String
          */
-        var findRootNameAttr = function($fields) {
+        plugin.findRootNameAttr = function($fields) {
           // Filter form element without name.
           var fieldNames = $.map($fields, function(e, i) {
             return $(e).attr('name');
@@ -459,8 +459,8 @@
           }
 
           // Defines root name attributes to be swaped.
-          var rootName1 = findRootNameAttr($fields1),
-              rootName2 = findRootNameAttr($fields2);
+          var rootName1 = plugin.findRootNameAttr($fields1),
+              rootName2 = plugin.findRootNameAttr($fields2);
 
           // Replace names from $element1 by those in $elements2
           $.each($fields1, function (i, e) {
