@@ -9978,7 +9978,7 @@ return jQuery;
                 moveDown(this);
             });
             $element.on("moved.jq.sheeper", function (e) {
-              console.log(e);
+              // Whenever a sheep is moved, update index.
               updateIndex();
             });
         }
