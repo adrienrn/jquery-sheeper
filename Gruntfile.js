@@ -28,7 +28,7 @@ module.exports = function(grunt) {
         dest: jsDist
       },
       docs: {
-        src: jsDeps.concat(jsSrc),
+        src: [ 'bower_components/jquery/dist/jquery.js', 'src/jquery.sheeper.js' ],//jsDeps.concat(jsSrc),
         dest: jsDocs
       }
     },
