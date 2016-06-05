@@ -147,6 +147,7 @@
                 moveDown(this);
             });
             $element.on("moved.jq.sheeper", function (e) {
+              // Whenever a sheep is moved, update index.
               updateIndex();
             });
         }
