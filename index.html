@@ -47,8 +47,7 @@
         <div class="card-demo">
   <div class="card-block">
     <div class="demo-label">Example</div>
-    
-<div id="demo1" data-toggle="sheeper" data-prototype="#demo1-prototype">
+    <div id="demo1" data-toggle="sheeper" data-prototype="#demo1-prototype">
   <h6>
     To-do list
     &nbsp;<a class="sheep-link" href="#">Add new to-do</a>
@@ -69,6 +68,15 @@
 
 <p>Flexible Javascript / jQuery plugin for form cloning from a given template or any HTML chunks cloning. The plugin lets you add sheeps, remove or reorder them, features lots of options and custom Javascript events and handles name attributes for you.</p>
 
+<ol>
+  <li><a href="#usage">Usage</a></li>
+  <li><a href="#options">Options</a></li>
+  <li><a href="#events">Events</a></li>
+  <li><a href="#symfony-integration">Symfony</a></li>
+  <li><a href="#jquery-ui-sortable">jQuery UI Sortable</a></li>
+  <li><a href="#sheepception">Sheepception</a></li>
+</ol>
+
 <p><a href="https://github.com/adrienrn/jquery-sheeper">
   View on Github
 </a></p>
@@ -79,7 +87,7 @@
 
 <p>The safest way is to add a script tag in the head of your site with the type text/template. It will be picked up by its id.</p>
 
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">id=</span><span class="s">"demo1-prototype"</span> <span class="na">type=</span><span class="s">"text/template"</span><span class="nt">&gt;</span>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">id=</span><span class="s">"demo1-prototype"</span> <span class="na">type=</span><span class="s">"text/template"</span><span class="nt">&gt;</span>
 <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"sheep"</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text"</span> <span class="nx">name</span><span class="o">=</span><span class="s2">"demo1[__NAME__]"</span> <span class="nx">placeholder</span><span class="o">=</span><span class="s2">"Don't forget about..."</span> <span class="nx">value</span><span class="o">=</span><span class="s2">""</span> <span class="o">/&gt;</span>
     <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"sheep-actions"</span><span class="o">&gt;</span>
@@ -88,22 +96,22 @@
 </span>        <span class="o">&lt;</span><span class="nx">a</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"unsheep-link"</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span><span class="nx">Delete</span><span class="o">&lt;</span><span class="sr">/a</span><span class="err">&gt;
 </span>    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
 </span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
-</span><span class="nt">&lt;/script&gt;</span></code></pre></div>
+</span><span class="nt">&lt;/script&gt;</span></code></pre></figure>
 
 <p>Then, you can initialize your sheeper. You can initialize this plugin via data-* attributes or via Javascript. Both of following syntax are equal.</p>
 
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"demo1"</span> <span class="na">data-toggle=</span><span class="s">"sheeper"</span> <span class="na">data-prototype=</span><span class="s">"#demo1-prototype"</span><span class="nt">&gt;</span>
+<figure class="highlight"><pre><code class="language-html" data-lang="html">  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"demo1"</span> <span class="na">data-toggle=</span><span class="s">"sheeper"</span> <span class="na">data-prototype=</span><span class="s">"#demo1-prototype"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;h6&gt;</span>
     To-do list
     <span class="ni">&amp;nbsp;</span><span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"sheep-link"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Add new to-do<span class="nt">&lt;/a&gt;</span>
   <span class="nt">&lt;/h6&gt;</span>
-<span class="nt">&lt;/div&gt;</span></code></pre></div>
+<span class="nt">&lt;/div&gt;</span></code></pre></figure>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s2">"#demo1"</span><span class="p">).</span><span class="nx">sheeper</span><span class="p">({</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s2">"#demo1"</span><span class="p">).</span><span class="nx">sheeper</span><span class="p">({</span>
   <span class="s2">"prototype"</span><span class="p">:</span> <span class="s2">"#demo1-prototype"</span>
-<span class="p">});</span></code></pre></div>
+<span class="p">});</span></code></pre></figure>
 
-<p>Note the <code>prototype</code> option matching the template <code>id</code> attribute.</p>
+<p>Note the <code class="highlighter-rouge">prototype</code> option matching the template <code class="highlighter-rouge">id</code> attribute.</p>
 
 <h2 id="options">Options</h2>
 
@@ -154,7 +162,7 @@
             </td>
             <td><p>This is the class used to identify a sheep.</p>
 
-<p><strong>Default:</strong> <code>.sheep</code></p>
+<p><strong>Default:</strong> <code class="highlighter-rouge">.sheep</code></p>
 </td>
         </tr>
     
@@ -170,11 +178,11 @@ By default, it will accept :</p>
 
 <p><em>Symfony forms notation:</em></p>
 
-<p><code>__NAME__</code> or <code>__name__</code></p>
+<p><code class="highlighter-rouge">__NAME__</code> or <code class="highlighter-rouge">__name__</code></p>
 
 <p><em>Conventional templating notation:</em></p>
 
-<p><code>{{ NAME }}</code> or <code>{{ name }}</code></p>
+<p><code class="highlighter-rouge"><span class="p">{</span><span class="err">{</span><span class="w"> </span><span class="err">NAME</span><span class="w"> </span><span class="p">}</span><span class="err">}</span></code> or <code class="highlighter-rouge"><span class="p">{</span><span class="err">{</span><span class="w"> </span><span class="err">name</span><span class="w"> </span><span class="p">}</span><span class="err">}</span></code></p>
 </td>
         </tr>
     
@@ -187,7 +195,7 @@ By default, it will accept :</p>
             </td>
             <td><p>Selector used to find the link that triggers the creation of a new sheep.</p>
 
-<p><strong>Default:</strong> <code>.sheep-link</code></p>
+<p><strong>Default:</strong> <code class="highlighter-rouge">.sheep-link</code></p>
 </td>
         </tr>
     
@@ -200,7 +208,7 @@ By default, it will accept :</p>
             </td>
             <td><p>Selector used to find the link(s) – inside the template – that triggers the deletion of a sheep.</p>
 
-<p><strong>Default:</strong> <code>.unsheep-link</code></p>
+<p><strong>Default:</strong> <code class="highlighter-rouge">.unsheep-link</code></p>
 </td>
         </tr>
     
@@ -213,7 +221,7 @@ By default, it will accept :</p>
             </td>
             <td><p>Selector used to find the link(s) – inside the template – that triggers the move up of a sheep.</p>
 
-<p><strong>Default:</strong> <code>.sheepup-link</code></p>
+<p><strong>Default:</strong> <code class="highlighter-rouge">.sheepup-link</code></p>
 </td>
         </tr>
     
@@ -226,7 +234,7 @@ By default, it will accept :</p>
             </td>
             <td><p>Selector used to find the link(s) – inside the template – that triggers the move down of a sheep.</p>
 
-<p><strong>Default:</strong> <code>.sheepdown-link</code></p>
+<p><strong>Default:</strong> <code class="highlighter-rouge">.sheepdown-link</code></p>
 </td>
         </tr>
     
@@ -239,7 +247,7 @@ By default, it will accept :</p>
             </td>
             <td><p>Minimum number of sheeps in the herd.</p>
 
-<p><strong>Default:</strong> <code>1</code></p>
+<p><strong>Default:</strong> <code class="highlighter-rouge">1</code></p>
 </td>
         </tr>
     
@@ -252,7 +260,7 @@ By default, it will accept :</p>
             </td>
             <td><p>Maximumimum number of sheeps in the herd.</p>
 
-<p><strong>Default:</strong> <code>100</code></p>
+<p><strong>Default:</strong> <code class="highlighter-rouge">100</code></p>
 </td>
         </tr>
     
@@ -265,7 +273,7 @@ By default, it will accept :</p>
             </td>
             <td><p>Tell the sheeper to prepend new sheeps at the beginning of the list instead of appending them at the end.</p>
 
-<p><strong>Default:</strong> <code>false</code></p>
+<p><strong>Default:</strong> <code class="highlighter-rouge">false</code></p>
 </td>
         </tr>
     
@@ -279,10 +287,10 @@ By default, it will accept :</p>
   In previous versions (&lt; 1.1.0), jQuery Sheeper did not have any events and *callbacks* were used and are now **deprecated**.
 </div>
 
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s2">"#demo1"</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">"sheeped.jq.sheeper"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s2">"#demo1"</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">"sheeped.jq.sheeper"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Do something...</span>
     <span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
-<span class="p">});</span></code></pre></div>
+<span class="p">});</span></code></pre></figure>
 
 <table>
     <tr>
@@ -296,7 +304,7 @@ By default, it will accept :</p>
             </td>
             <td><p>Fired <strong>after</strong> a new sheep as been created and added to the herd.</p>
 
-<p><code>event.target</code> is the new sheep added to the herd</p>
+<p><code class="highlighter-rouge">event.target</code> is the new sheep added to the herd</p>
 </td>
         </tr>
     
@@ -306,7 +314,7 @@ By default, it will accept :</p>
             </td>
             <td><p>Fired <strong>before</strong> a sheep is deleted.</p>
 
-<p><code>event.target</code> is the sheep due to be deleted from the herd</p>
+<p><code class="highlighter-rouge">event.target</code> is the sheep due to be deleted from the herd</p>
 </td>
         </tr>
     
@@ -316,9 +324,9 @@ By default, it will accept :</p>
             </td>
             <td><p>Fired <strong>after</strong> a sheep has been deleted.</p>
 
-<p><code>event.target</code> is the container holding the sheeps.</p>
+<p><code class="highlighter-rouge">event.target</code> is the container holding the sheeps.</p>
 
-<p><code>event.relatedTarget</code> is the sheep that has been removed from the herd.</p>
+<p><code class="highlighter-rouge">event.relatedTarget</code> is the sheep that has been removed from the herd.</p>
 </td>
         </tr>
     
@@ -328,9 +336,9 @@ By default, it will accept :</p>
             </td>
             <td><p>Fired <strong>before</strong> a sheep is moving up or down.</p>
 
-<p><code>event.target</code> is the sheep that is moving.</p>
+<p><code class="highlighter-rouge">event.target</code> is the sheep that is moving.</p>
 
-<p><code>event.relatedTarget</code> is the other sheep moving, giving up his place to the sheep moving.</p>
+<p><code class="highlighter-rouge">event.relatedTarget</code> is the other sheep moving, giving up his place to the sheep moving.</p>
 </td>
         </tr>
     
@@ -340,9 +348,9 @@ By default, it will accept :</p>
             </td>
             <td><p>Fired <strong>after</strong> a sheep is moving up or down.</p>
 
-<p><code>event.target</code> is the sheep that is moving.</p>
+<p><code class="highlighter-rouge">event.target</code> is the sheep that is moving.</p>
 
-<p><code>event.relatedTarget</code> is the other sheep moving, giving up his place to the sheep moving.</p>
+<p><code class="highlighter-rouge">event.relatedTarget</code> is the other sheep moving, giving up his place to the sheep moving.</p>
 </td>
         </tr>
     
@@ -352,9 +360,9 @@ By default, it will accept :</p>
             </td>
             <td><p>Fired <strong>before</strong> a sheep is moving up.</p>
 
-<p><code>event.target</code> is the sheep that is moving up.</p>
+<p><code class="highlighter-rouge">event.target</code> is the sheep that is moving up.</p>
 
-<p><code>event.relatedTarget</code> is the other sheep moving (down), giving up his place to the sheep moving.</p>
+<p><code class="highlighter-rouge">event.relatedTarget</code> is the other sheep moving (down), giving up his place to the sheep moving.</p>
 </td>
         </tr>
     
@@ -364,9 +372,9 @@ By default, it will accept :</p>
             </td>
             <td><p>Fired <strong>after</strong> a sheep is moving up.</p>
 
-<p><code>event.target</code> is the sheep that is moving up.</p>
+<p><code class="highlighter-rouge">event.target</code> is the sheep that is moving up.</p>
 
-<p><code>event.relatedTarget</code> is the other sheep moving (down), giving up his place to the sheep moving.</p>
+<p><code class="highlighter-rouge">event.relatedTarget</code> is the other sheep moving (down), giving up his place to the sheep moving.</p>
 </td>
         </tr>
     
@@ -376,9 +384,9 @@ By default, it will accept :</p>
             </td>
             <td><p>Fired <strong>before</strong> a sheep is moving down.</p>
 
-<p><code>event.target</code> is the sheep that is moving down.</p>
+<p><code class="highlighter-rouge">event.target</code> is the sheep that is moving down.</p>
 
-<p><code>event.relatedTarget</code> is the other sheep moving (up), giving up his place to the sheep moving.</p>
+<p><code class="highlighter-rouge">event.relatedTarget</code> is the other sheep moving (up), giving up his place to the sheep moving.</p>
 </td>
         </tr>
     
@@ -388,9 +396,9 @@ By default, it will accept :</p>
             </td>
             <td><p>Fired <strong>after</strong> a sheep is moving up.</p>
 
-<p><code>event.target</code> is the sheep that is moving down.</p>
+<p><code class="highlighter-rouge">event.target</code> is the sheep that is moving down.</p>
 
-<p><code>event.relatedTarget</code> is the other sheep moving (up), giving up his place to the sheep moving.</p>
+<p><code class="highlighter-rouge">event.relatedTarget</code> is the other sheep moving (up), giving up his place to the sheep moving.</p>
 </td>
         </tr>
     
@@ -400,18 +408,52 @@ By default, it will accept :</p>
 
 <p>jQuery Sheeper has found its first use case scenario as part of a <a href="https://symfony.com/">Symfony2</a> project, working with <a href="http://symfony.com/doc/current/components/form/introduction.html">the Symfony Form components</a> and it still does.</p>
 
-<p><code>@TODO</code></p>
+<p><code class="highlighter-rouge">@TODO</code></p>
+
+<h2 id="jquery-ui-sortable">jQuery UI Sortable</h2>
+
+<p>jQuery Sheeper works seemlessly with <a href="https://jqueryui.com/sortable/">jQuery UI Sortable</a>, a javascript component to reorder list items using drag-and-drop.</p>
+
+<p>You can achieve this integration with the <code class="highlighter-rouge">container</code> option and <a href="#events">events</a>.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span>
+    <span class="na">id=</span><span class="s">"demo2"</span>
+    <span class="na">data-toggle=</span><span class="s">"sheeper"</span>
+    <span class="na">data-prototype=</span><span class="s">"#demo1-prototype"</span>
+    <span class="na">data-container=</span><span class="s">".sheeps"</span> <span class="err">&lt;!</span><span class="na">--</span> <span class="na">Reference</span> <span class="na">the</span> <span class="na">div</span><span class="err">.</span><span class="na">sheeps</span> <span class="na">below</span> <span class="na">--</span><span class="nt">&gt;</span>
+&gt;
+  <span class="nt">&lt;h6&gt;</span>
+    To-do list
+    <span class="ni">&amp;nbsp;</span><span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"sheep-link"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Add new to-do<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/h6&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"sheeps"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- This div will hold sheeps that you create. --&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></figure>
+
+<p>Enable jQuery UI Sortable on the sheep container:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s2">"#demo2 .sheeps"</span><span class="p">).</span><span class="nx">sortable</span><span class="p">({});</span></code></pre></figure>
+
+<p>Then, bind the <code class="highlighter-rouge">moved.jq.sheeper</code> to the <a href="http://api.jqueryui.com/sortable/#event-stop"><code class="highlighter-rouge">sortstop</code> jQuery UI event</a>.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s2">".selector"</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">"sortstop"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">ui</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">item</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="nx">sheeper</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">closest</span><span class="p">(</span><span class="s2">"[data-toggle='sheeper']"</span><span class="p">);</span>
+
+    <span class="nx">sheeper</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s2">"moved.jq.sheeper"</span><span class="p">);</span>
+<span class="p">});</span></code></pre></figure>
 
 <h2 id="sheepception">Sheepception</h2>
 
-<p><code>@TODO</code></p>
+<p><code class="highlighter-rouge">@TODO</code></p>
 
 
       </main>
 
       <footer class="footer">
         <small>
-          &copy; <time datetime="2016-02-19T21:37:42+01:00">2016</time>. All rights reserved.
+          &copy; <time datetime="2016-06-06T10:49:38+02:00">2016</time>. All rights reserved.
         </small>
       </footer>
     </div>
