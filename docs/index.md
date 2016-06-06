@@ -138,7 +138,7 @@ You can achieve this integration with the `container` option and [events](#event
 Enable jQuery UI Sortable on the sheep container:
 
 {% highlight javascript %}
-$("[data-toggle='sheeper'] .sheeps").sortable({});
+$("#demo2 .sheeps").sortable({});
 {% endhighlight %}
 
 Then, bind the `moved.jq.sheeper` to the [`sortstop` jQuery UI event](http://api.jqueryui.com/sortable/#event-stop).
