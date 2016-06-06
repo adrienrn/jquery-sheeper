@@ -9977,6 +9977,10 @@ return jQuery;
 
                 moveDown(this);
             });
+            $element.on("moved.jq.sheeper", function (e) {
+              // Whenever a sheep is moved, update index.
+              updateIndex();
+            });
         }
 
         /**
@@ -10084,7 +10088,7 @@ return jQuery;
                     })
                 );
 
-                updateIndex($sheep, $previous);
+                // updateIndex();
                 $sheep.detach().insertBefore($previous);
 
                 // Setup some callbacks.
@@ -10132,7 +10136,7 @@ return jQuery;
                     })
                 );
 
-                updateIndex($sheep, $next);
+                // updateIndex();
                 $sheep.detach().insertAfter($next);
 
                 // Setup some callbacks.
@@ -10256,42 +10260,51 @@ return jQuery;
          * @return String
          */
         var findRootNameAttr = function($fields) {
-          return sharedStart($fields.map(function(i, e) {
+          // Filter form element without name.
+          var fieldNames = $.map($fields, function(e, i) {
             return $(e).attr('name');
-          }).get());
+          });
+
+          // Return shared start.
+          return sharedStart(fieldNames);
         }
 
         /**
-         * Swap sheep id and form name.
-         * @param  jQuery $element1
-         * @param  jQuery $element2
+         * Update name attributes of form fields inside sheeps.
+         *
+         *
          */
-        var updateIndex = function ($element1, $element2)
+        var updateIndex = function ()
         {
-          // Get all fields within element1.
-          var $fields1 = $element1.find("input, select, textarea");
+          // Get the list of sheeps.
+          var sheeps = plugin.getSheeps();
 
-          // Get all fields within element2.
-          var $fields2 = $element2.find("input, select, textarea");
+          // Iterate over each of them.
+          for (var index = 0; index < sheeps.length; index++) {
+              // Find form fields inside the sheeps.
+              var $fields = $(sheeps[index]).find("input, select, textarea");
 
-          if ($fields1.length === 0 || $fields2.length === 0) {
-            // Skip; no input / select / textarea in sheep template.
-            return;
+              $fields = $.grep($fields, function(e, i) {
+                  return (e.name !== "");
+              });
+
+              if ($fields.length === 0) {
+                // Skip; no input / select / textarea in sheep template.
+                return;
+              }
+
+              // Defines root name attributes to be updated.
+              var rootName = findRootNameAttr($fields);
+              if (rootName) {
+                // Replace int at the end (flashmessage[0 -> flashmessage[3, etc)
+                var rootName2 = rootName.replace(/(.*)\d+(.*)$/, '$1' + index + '$2');
+
+                // Actually update the name attr of each fields in this sheep.
+                $.each($fields, function (i, e) {
+                    $(e).attr('name', $(e).attr('name').replace(rootName, rootName2));
+                });
+              }
           }
-
-          // Defines root name attributes to be swaped.
-          var rootName1 = findRootNameAttr($fields1),
-              rootName2 = findRootNameAttr($fields2);
-
-          // Replace names from $element1 by those in $elements2
-          $fields1.each(function (i, e) {
-            $(e).attr('name', $(e).attr('name').replace(rootName1, rootName2));
-          });
-
-          // Replace names from $element2 by those in $elements1
-          $fields2.each(function (i, e) {
-            $(e).attr('name', $(e).attr('name').replace(rootName2, rootName1));
-          });
         }
 
         /**
