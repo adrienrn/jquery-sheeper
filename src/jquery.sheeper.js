@@ -450,6 +450,26 @@
 
           // Iterate over each of them.
           for (var index = 0; index < sheeps.length; index++) {
+            // Find form fields inside the sheeps.
+            var $fields = $(sheeps[index]).find("input, select, textarea");
+
+            $fields = $.grep($fields, function(e, i) {
+                return (e.name !== "");
+            });
+
+            if ($fields.length === 0) {
+              // Skip; no input / select / textarea in sheep template.
+              return;
+            }
+
+            // Prepend 'sheeper_' at the start of all field name attr.
+            $.each($fields, function (i, e) {
+              $(e).attr('name', 'sheeper_' + $(e).attr('name'));
+            });
+          }
+
+          // Iterate over each of them.
+          for (var index = 0; index < sheeps.length; index++) {
               // Find form fields inside the sheeps.
               var $fields = $(sheeps[index]).find("input, select, textarea");
 
@@ -470,7 +490,7 @@
 
                 // Actually update the name attr of each fields in this sheep.
                 $.each($fields, function (i, e) {
-                    $(e).attr('name', $(e).attr('name').replace(rootName, rootName2));
+                    $(e).attr('name', $(e).attr('name').replace(rootName, rootName2.replace(/^sheeper_/, '')));
                 });
               }
           }
