@@ -1,6 +1,6 @@
 {
   "name": "jquery-sheeper",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Flexible jQuery plugin to dynamically create piece of forms (from a template)",
   "main": "jquery.sheeper.js",
   "directories": {

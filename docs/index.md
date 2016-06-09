@@ -21,6 +21,7 @@ title: Home
 4. [Symfony](#symfony-integration)
 5. [jQuery UI Sortable](#jquery-ui-sortable)
 6. [Sheepception](#sheepception)
+7. [Known issues](#known-issues)
 
 <a href="{{ site.github.repo }}">
   View on Github
@@ -155,4 +156,16 @@ $(".selector").on("sortstop", function(event, ui) {
 ## Sheepception
 
 `@TODO`
+
+---
+
+## Known issues
+
+List of known issues and some workaround.
+
+### jQuery Sortable and radio input
+
+jQuery UI Sortable is having trouble with radio input, being unchecked when moved.
+
+What Wordpress does as a workaround is using the <a href="https://core.trac.wordpress.org/attachment/ticket/16972/16972.5.diff" target="_blank">`helper` option and this handy renaming</a>.
 
