@@ -451,11 +451,7 @@
           // Iterate over each of them.
           for (var index = 0; index < sheeps.length; index++) {
             // Find form fields inside the sheeps.
-            var $fields = $(sheeps[index]).find("input, select, textarea");
-
-            $fields = $.grep($fields, function(e, i) {
-                return (e.name !== "");
-            });
+            var $fields = findFormFields($(sheeps[index]));
 
             if ($fields.length === 0) {
               // Skip; no input / select / textarea in sheep template.
@@ -471,16 +467,7 @@
           // Iterate over each of them.
           for (var index = 0; index < sheeps.length; index++) {
               // Find form fields inside the sheeps.
-              var $fields = $(sheeps[index]).find("input, select, textarea");
-
-              $fields = $.grep($fields, function(e, i) {
-                  return (e.name !== "");
-              });
-
-              if ($fields.length === 0) {
-                // Skip; no input / select / textarea in sheep template.
-                return;
-              }
+              var $fields = findFormFields($(sheeps[index]));
 
               // Defines root name attributes to be updated.
               var rootName = findRootNameAttr($fields);
@@ -508,6 +495,19 @@
             }
 
             return id;
+        }
+
+        var findFormFields = function ($sheep)
+        {
+            // Find all fields inside this sheep.
+            var $fields = $sheep.find("input, select, textarea");
+
+            // Filter out those without a name.
+            $fields = $.grep($fields, function(e, i) {
+                return (e.name !== "");
+            });
+
+            return $fields;
         }
 
         plugin.init();
