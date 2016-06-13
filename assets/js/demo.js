@@ -10304,7 +10304,7 @@ return jQuery;
               var rootName = findRootNameAttr($fields);
               if (rootName) {
                 // Replace int at the end (flashmessage[0 -> flashmessage[3, etc)
-                var rootName2 = rootName.replace(/(.*)\d+(.*)$/, '$1' + index + '$2');
+                var rootName2 = rootName.replace(/(.*\[)\d+(\].*)$/, '$1' + index + '$2');
 
                 // Actually update the name attr of each fields in this sheep.
                 $.each($fields, function (i, e) {
