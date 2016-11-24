@@ -18,6 +18,9 @@
                 afterInit: function(element) {
                     return true;
                 },
+                beforeSheep: function(element) {
+                    return true;
+                },
                 afterSheep: function(element) {
                     return true;
                 },
@@ -174,15 +177,29 @@
                 if(id === undefined) {
                     // data-sheep-id is not defined on the element, making one.
                     id = generateId();
-                    $sheep.data("sheep-id", id);
                 }
 
+                plugin.settings.beforeSheep($sheep);
+                $wrapper.trigger(
+                    $.Event('sheeping.jq.sheeper', {
+                        relatedTarget: $sheep[0]
+                    })
+                );
+
+                $sheep.data("sheep-id", id);
                 ids.push(id);
             } else {
                 var id = generateId();
 
                 // Creates a new sheep from template.
                 $sheep = $(plugin.settings.prototype.replace(plugin.settings.placeholder, id));
+
+                plugin.settings.beforeSheep($sheep);
+                $wrapper.trigger(
+                    $.Event('sheeping.jq.sheeper', {
+                        relatedTarget: $sheep[0]
+                    })
+                );
 
                 // Sets the sheep ID.
                 $sheep.data("sheep-id", id);
