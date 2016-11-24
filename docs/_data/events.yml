@@ -1,7 +1,18 @@
 -
+    name: sheeping.jq.sheeper
+    description: >
+        Fired **before** a new sheep is due to be added to the herd.
+
+
+        `event.target` is the container holding the sheeps.
+
+
+        `event.relatedTarget` is the sheep that will be added to the herd.
+
+-
     name: sheeped.jq.sheeper
     description: >
-        Fired **after** a new sheep as been created and added to the herd.
+        Fired **after** a new sheep has been created and added to the herd.
 
 
         `event.target` is the new sheep added to the herd
