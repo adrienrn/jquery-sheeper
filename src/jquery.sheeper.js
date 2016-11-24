@@ -186,13 +186,13 @@
                     })
                 );
 
-                $sheep.data("sheep-id", id);
-                ids.push(id);
+                // Registers it in the herd.
+                registerSheep($sheep, id);
             } else {
                 var id = generateId();
 
                 // Creates a new sheep from template.
-                $sheep = $(plugin.settings.prototype.replace(plugin.settings.placeholder, id));
+                $sheep = buildSheep(plugin.settings.prototype, id);
 
                 plugin.settings.beforeSheep($sheep);
                 $wrapper.trigger(
@@ -201,9 +201,8 @@
                     })
                 );
 
-                // Sets the sheep ID.
-                $sheep.data("sheep-id", id);
-                ids.push(id);
+                // Registers it in the herd.
+                registerSheep($sheep, id);
 
                 if (plugin.settings.prepend) {
                     $wrapper.prepend($sheep);
@@ -525,6 +524,29 @@
             });
 
             return $fields;
+        }
+
+        var buildSheep = function (sheepPrototype, sheepId)
+        {
+          var regexp = new RegExp(plugin.settings.placeholder, 'gi');
+
+          // Create the sheep from the prototype.
+          $sheep = $(sheepPrototype.replace(regexp, sheepId));
+
+          // Return the newly created sheep.
+          return $sheep;
+        }
+
+        var registerSheep = function ($sheep, sheepId)
+        {
+          // Sets the sheep ID.
+          $sheep.data("sheep-id", sheepId);
+
+          // Register this new sheep, into the ids array.
+          ids.push(sheepId);
+
+          // Return the sheep.
+          return $sheep;
         }
 
         plugin.init();
